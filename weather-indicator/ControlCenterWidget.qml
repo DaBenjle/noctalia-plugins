@@ -9,6 +9,7 @@ import qs.Services.UI
 Item {
     id: root
 
+    property ShellScreen screen
     property var pluginApi: null
     readonly property bool weatherReady: Settings.data.location.weatherEnabled && (LocationService.data.weather !== null)
 
@@ -17,18 +18,40 @@ Item {
 
     readonly property string tooltipOption: cfg.tooltipOption || defaults.tooltipOption
     readonly property string iconText: weatherReady ? LocationService.weatherSymbolFromCode(LocationService.data.weather.current_weather.weathercode, LocationService.data.weather.current_weather.is_day) : "weather-cloud-off"
+    property bool applyUiScale: true
+    property real baseSize: Style.baseWidgetSize
+    implicitWidth: applyUiScale ? Math.round(baseSize * Style.uiScaleRatio) : Math.round(baseSize)
+    implicitHeight: applyUiScale ? Math.round(baseSize * Style.uiScaleRatio) : Math.round(baseSize)
 
 NIconButtonHot {
   property ShellScreen screen
   icon: root.iconText
 
   tooltipText: {
-                return buildCurrentTemp();
-
+    let allRows = [];
+    switch (root.tooltipOption) {
+        case "highlow": {
+            allRows.push(...buildHiLowTemps());
+            break
+        }
+        case "sunrise": {
+            allRows.push(...buildSunriseSunset())
+            break
+        }
+        case "everything": {
+            allRows.push(...buildCurrentTemp());
+            allRows.push(...buildHiLowTemps())
+            allRows.push(...buildSunriseSunset());
+            break
+        }
+        default:
+            break
+    }
+    return allRows
         }
   onClicked: {
     if (pluginApi) {
-      pluginApi.togglePanel(screen, this);
+      pluginApi.togglePanel(root.screen, this);
     }
   }
 }
