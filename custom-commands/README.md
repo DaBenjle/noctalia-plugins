@@ -36,3 +36,11 @@ Open **Settings > Plugins > Custom Commands** to manage your command list:
 - **Change icons** by clicking the icon button to open the icon picker.
 
 Changes are saved automatically to the plugin's `settings.json`.
+
+## IPC Integration
+
+You can quickly browse your commands with the following IPC call:
+
+```bash
+qs -c noctalia-shell ipc call plugin:custom-commands toggle
+```
