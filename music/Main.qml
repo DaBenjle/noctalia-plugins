@@ -195,7 +195,7 @@ Item {
       }
 
       if (exitCode !== 0 && root.lastError === "") {
-        root.lastError = root.pluginApi?.tr("errors.playbackFailed") || "music-search playback command failed.";
+        root.lastError = root.pluginApi?.tr("errors.playbackFailed");
       }
 
       root.refreshStatus();
@@ -226,13 +226,13 @@ Item {
       if (exitCode === 0 && output.length > 0) {
         root.applyLibrary(output);
         root.lastError = "";
-        root.lastNotice = root.pluginApi?.tr("notices.libraryUpdated") || "Library updated.";
+        root.lastNotice = root.pluginApi?.tr("notices.libraryUpdated");
       } else if (exitCode !== 0 && stderrText.length > 0) {
         root.lastNotice = "";
         root.lastError = stderrText;
       } else if (exitCode !== 0 && root.lastError === "") {
         root.lastNotice = "";
-        root.lastError = root.pluginApi?.tr("errors.libraryFailed") || "music-search library command failed.";
+        root.lastError = root.pluginApi?.tr("errors.libraryFailed");
       }
     }
   }
@@ -250,10 +250,10 @@ Item {
 
       if (exitCode === 0) {
         root.lastError = "";
-        root.lastNotice = output.length > 0 ? (root.pluginApi?.tr("notices.savedMp3To", {"path": output}) || ("Saved mp3 to " + output)) : (root.pluginApi?.tr("notices.savedMp3") || "Saved mp3 locally.");
+        root.lastNotice = output.length > 0 ? (root.pluginApi?.tr("notices.savedMp3To", {"path": output})) : (root.pluginApi?.tr("notices.savedMp3"));
       } else {
         root.lastNotice = "";
-        root.lastError = stderrText.length > 0 ? stderrText : (root.pluginApi?.tr("errors.mp3SaveFailed") || "Could not save mp3 locally.");
+        root.lastError = stderrText.length > 0 ? stderrText : (root.pluginApi?.tr("errors.mp3SaveFailed"));
       }
     }
   }
@@ -277,7 +277,7 @@ Item {
         }
         root.lastError = "";
         if (action === "enqueue") {
-          root.lastNotice = root.pluginApi?.tr("notices.addedToQueue") || "Added to queue.";
+          root.lastNotice = root.pluginApi?.tr("notices.addedToQueue");
         } else if (action === "remove") {
           root.lastNotice = "Removed queued track.";
         } else if (action === "remove-silent") {
@@ -307,7 +307,7 @@ Item {
         root.pendingAutoplaySaved = false;
         root.pendingAutoplaySavedShuffle = false;
         root.lastNotice = "";
-        root.lastError = stderrText.length > 0 ? stderrText : (root.pluginApi?.tr("errors.queueFailed") || "Could not add track to queue.");
+        root.lastError = stderrText.length > 0 ? stderrText : (root.pluginApi?.tr("errors.queueFailed"));
       }
     }
   }
@@ -321,7 +321,7 @@ Item {
       var output = String(queueBatchProcess.stdout.text || "").trim();
       var stderrText = String(queueBatchProcess.stderr.text || "").trim();
       if (exitCode !== 0) {
-        root.finishQueueBatch(stderrText.length > 0 ? stderrText : (root.pluginApi?.tr("errors.queuePlaylistTrackFailed") || "Could not add playlist track to queue."), "");
+        root.finishQueueBatch(stderrText.length > 0 ? stderrText : (root.pluginApi?.tr("errors.queuePlaylistTrackFailed")), "");
         return;
       }
 
@@ -351,7 +351,7 @@ Item {
       }
 
       if (exitCode !== 0) {
-        root.finishQueueBatch(stderrText.length > 0 ? stderrText : (root.pluginApi?.tr("errors.queueActionFailed", {"action": action}) || ("Could not " + action + " queue.")), "");
+        root.finishQueueBatch(stderrText.length > 0 ? stderrText : (root.pluginApi?.tr("errors.queueActionFailed", {"action": action})), "");
         return;
       }
 
@@ -419,10 +419,10 @@ Item {
           root.currentPosition = parsed.position || 0;
           root.lastError = "";
         } catch (error) {
-          root.lastError = root.pluginApi?.tr("errors.seekMalformed") || "Seek response was malformed.";
+          root.lastError = root.pluginApi?.tr("errors.seekMalformed");
         }
       } else if (exitCode !== 0) {
-        root.lastError = stderrText.length > 0 ? stderrText : (root.pluginApi?.tr("errors.seekFailed") || "Could not seek playback.");
+        root.lastError = stderrText.length > 0 ? stderrText : (root.pluginApi?.tr("errors.seekFailed"));
       }
 
       var pendingSeek = Number(root.pendingSeekPosition);
@@ -452,7 +452,7 @@ Item {
         root.applyState(output);
         root.lastError = "";
       } else if (exitCode !== 0) {
-        root.lastError = stderrText.length > 0 ? stderrText : (root.pluginApi?.tr("errors.speedFailed") || "Could not change playback speed.");
+        root.lastError = stderrText.length > 0 ? stderrText : (root.pluginApi?.tr("errors.speedFailed"));
       }
     }
   }
@@ -525,7 +525,7 @@ Item {
           root.pendingPlaylistCreateName = "";
           root.pendingPlaylistCreateEntryId = "";
         }
-        root.lastNotice = root.pluginApi?.tr("notices.playlistsUpdated") || "Playlists updated.";
+        root.lastNotice = root.pluginApi?.tr("notices.playlistsUpdated");
       } else if (exitCode !== 0 && stderrText.length > 0) {
         root.pendingPlaylistCreateName = "";
         root.pendingPlaylistCreateEntryId = "";
@@ -547,10 +547,10 @@ Item {
       var stderrText = String(importProcess.stderr.text || "").trim();
       if (exitCode === 0) {
         root.lastError = "";
-        root.lastNotice = output.length > 0 ? output : (root.pluginApi?.tr("notices.folderImported") || "Folder imported as playlist.");
+        root.lastNotice = output.length > 0 ? output : (root.pluginApi?.tr("notices.folderImported"));
       } else {
         root.lastNotice = "";
-        root.lastError = stderrText.length > 0 ? stderrText : (root.pluginApi?.tr("errors.folderImportFailed") || "Could not import folder as playlist.");
+        root.lastError = stderrText.length > 0 ? stderrText : (root.pluginApi?.tr("errors.folderImportFailed"));
       }
     }
   }
@@ -680,12 +680,12 @@ Item {
   function startupMessageForEntry(entry) {
     var provider = inferProviderForEntry(entry);
     if (provider === "local") {
-      return root.pluginApi?.tr("status.openingLocal") || "Opening local track...";
+      return root.pluginApi?.tr("status.openingLocal");
     }
     if (provider === "soundcloud") {
-      return root.pluginApi?.tr("status.connectingSoundcloud") || "Connecting to SoundCloud...";
+      return root.pluginApi?.tr("status.connectingSoundcloud");
     }
-    return root.pluginApi?.tr("status.connectingYoutube") || "Connecting to YouTube...";
+    return root.pluginApi?.tr("status.connectingYoutube");
   }
 
   function currentTrackEntry() {
@@ -885,7 +885,7 @@ Item {
     root.lastError = "";
     root.lastNotice = "";
     root.providerBusy = true;
-    root.providerSuccessNotice = root.pluginApi?.tr("notices.switchedTo", {"provider": root.providerLabel(target)}) || ("Switched to " + root.providerLabel(target) + ".");
+    root.providerSuccessNotice = root.pluginApi?.tr("notices.switchedTo", {"provider": root.providerLabel(target)});
     providerProcess.exec({
                            "command": buildCommand(["set-provider", target])
                          });
@@ -976,7 +976,7 @@ Item {
     root.lastError = "";
     root.lastNotice = "";
     root.providerBusy = true;
-    root.providerSuccessNotice = root.pluginApi?.tr("notices.sortSet", {"sort": root.sortLabel(target)}) || ("Default sort set to " + root.sortLabel(target) + ".");
+    root.providerSuccessNotice = root.pluginApi?.tr("notices.sortSet", {"sort": root.sortLabel(target)});
     providerProcess.exec({
                            "command": buildCommand(["set-sort", target])
                          });
@@ -991,7 +991,7 @@ Item {
     root.lastError = "";
     root.lastNotice = "";
     root.providerBusy = true;
-    root.providerSuccessNotice = root.pluginApi?.tr("notices.downloadFolderUpdated") || "Download folder updated.";
+    root.providerSuccessNotice = root.pluginApi?.tr("notices.downloadFolderUpdated");
     providerProcess.exec({
                            "command": buildCommand(["set-download-dir", target])
                          });
@@ -1006,7 +1006,7 @@ Item {
     root.lastError = "";
     root.lastNotice = "";
     root.providerBusy = true;
-    root.providerSuccessNotice = root.pluginApi?.tr("notices.cacheLimitUpdated") || "MP3 cache limit updated.";
+    root.providerSuccessNotice = root.pluginApi?.tr("notices.cacheLimitUpdated");
     providerProcess.exec({
                            "command": buildCommand(["set-cache-size", String(target)])
                          });
@@ -1021,7 +1021,7 @@ Item {
     root.lastError = "";
     root.lastNotice = "";
     root.providerBusy = true;
-    root.providerSuccessNotice = root.pluginApi?.tr("notices.ytClientSet", {"client": target}) || ("YouTube player client set to " + target + ".");
+    root.providerSuccessNotice = root.pluginApi?.tr("notices.ytClientSet", {"client": target});
     providerProcess.exec({
                            "command": buildCommand(["set-yt-player-client", target])
                          });
@@ -1359,9 +1359,9 @@ Item {
     startQueueBatch(entries, {
                       "clearFirst": false,
                       "doneNotice": shuffle === true
-                          ? (root.pluginApi?.tr("notices.addedShuffledPlaylistToQueue", {"name": playlistName}) || ("Added shuffled playlist \"" + playlistName + "\" to queue."))
-                          : (root.pluginApi?.tr("notices.addedPlaylistToQueue", {"name": playlistName}) || ("Added playlist \"" + playlistName + "\" to queue.")),
-                      "emptyNotice": root.pluginApi?.tr("notices.playlistEmpty") || "Playlist is empty."
+                          ? (root.pluginApi?.tr("notices.addedShuffledPlaylistToQueue", {"name": playlistName}))
+                          : (root.pluginApi?.tr("notices.addedPlaylistToQueue", {"name": playlistName})),
+                      "emptyNotice": root.pluginApi?.tr("notices.playlistEmpty")
                     });
   }
 
@@ -1370,7 +1370,7 @@ Item {
     var entries = playlistTracks(playlistId, shuffle);
     if (entries.length === 0) {
       root.lastError = "";
-      root.lastNotice = root.pluginApi?.tr("notices.playlistEmpty") || "Playlist is empty.";
+      root.lastNotice = root.pluginApi?.tr("notices.playlistEmpty");
       return;
     }
 
@@ -1379,9 +1379,9 @@ Item {
                       "clearFirst": true,
                       "finalAction": "skip",
                       "doneNotice": shuffle === true
-                          ? (root.pluginApi?.tr("notices.playingShuffledPlaylist", {"name": playlistName}) || ("Playing shuffled playlist \"" + playlistName + "\"."))
-                          : (root.pluginApi?.tr("notices.playingPlaylist", {"name": playlistName}) || ("Playing playlist \"" + playlistName + "\".")),
-                      "emptyNotice": root.pluginApi?.tr("notices.playlistEmpty") || "Playlist is empty."
+                          ? (root.pluginApi?.tr("notices.playingShuffledPlaylist", {"name": playlistName}))
+                          : (root.pluginApi?.tr("notices.playingPlaylist", {"name": playlistName})),
+                      "emptyNotice": root.pluginApi?.tr("notices.playlistEmpty")
                     });
   }
 
@@ -1628,7 +1628,7 @@ Item {
     }
 
     root.lastError = "";
-    root.lastNotice = root.pluginApi?.tr("notices.importingFolder") || "Importing folder as playlist...";
+    root.lastNotice = root.pluginApi?.tr("notices.importingFolder");
     root.importBusy = true;
 
     var commandArgs = ["import-folder-playlist", targetFolder];
@@ -1648,7 +1648,7 @@ Item {
     }
 
     root.lastError = "";
-    root.lastNotice = root.pluginApi?.tr("notices.syncingFolder") || "Syncing folder playlist...";
+    root.lastNotice = root.pluginApi?.tr("notices.syncingFolder");
     root.importBusy = true;
     importProcess.exec({
                          "command": buildCommand(["sync-folder-playlist", targetId])
@@ -1687,7 +1687,7 @@ Item {
       return;
     }
 
-    root.lastNotice = root.pluginApi?.tr("notices.savingMp3") || "Saving current track as mp3...";
+    root.lastNotice = root.pluginApi?.tr("notices.savingMp3");
     downloadEntry(entry);
   }
 

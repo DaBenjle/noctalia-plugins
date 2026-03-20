@@ -9,7 +9,7 @@ Item {
 
   property var pluginApi: null
   property var launcher: null
-  property string name: pluginApi?.tr("common.music") || "music-search"
+  property string name: pluginApi?.tr("common.music")
   property bool handleSearch: false
   property string supportedLayouts: "list"
   property string iconMode: Settings.data.appLauncher.iconMode
@@ -63,13 +63,13 @@ Item {
         } catch (error) {
           root.searchResults = [];
           root.lastCompletedQuery = completedQuery;
-          root.searchError = pluginApi?.tr("errors.searchMalformed") || "Search results were malformed.";
+          root.searchError = pluginApi?.tr("errors.searchMalformed");
           Logger.w("MusicSearchLauncher", "Failed to parse search results:", error);
         }
       } else if (!staleSearch) {
         root.searchResults = [];
         root.lastCompletedQuery = completedQuery;
-        root.searchError = String(searchProcess.stderr.text || "").trim() || pluginApi?.tr("search.failed") || "Search failed.";
+        root.searchError = String(searchProcess.stderr.text || "").trim() || pluginApi?.tr("search.failed");
       }
 
       root.runningSearchQuery = "";
@@ -159,7 +159,7 @@ Item {
     return [
           {
             "name": commandName,
-            "description": pluginApi?.tr("command.description", {"provider": mainInstance?.providerLabel() || "YouTube"}) || ("Search with music-search (" + (mainInstance?.providerLabel() || "YouTube") + "), play audio, and save favorites."),
+            "description": pluginApi?.tr("command.description", {"provider": mainInstance?.providerLabel() || "YouTube"}),
             "icon": "music",
             "isTablerIcon": true,
             "isImage": false,
@@ -218,7 +218,7 @@ Item {
     if (!isFinite(plays) || plays <= 0) {
       return "";
     }
-    return plays === 1 ? (pluginApi?.tr("common.onePlay") || "1 play") : (pluginApi?.tr("common.plays", {"count": plays}) || (plays + " plays"));
+    return plays === 1 ? (pluginApi?.tr("common.onePlay")) : (pluginApi?.tr("common.plays", {"count": plays}));
   }
 
   function buildDescription(entry, prefix) {
@@ -262,8 +262,8 @@ Item {
   }
 
   function buildLibraryResultItem(entry, options) {
-    var title = entry?.title || entry?.name || pluginApi?.tr("common.untitled") || "Untitled";
-    var description = options?.description || buildDescription(entry, options?.prefix || pluginApi?.tr("library.saved") || "Saved");
+    var title = entry?.title || entry?.name || pluginApi?.tr("common.untitled");
+    var description = options?.description || buildDescription(entry, options?.prefix || pluginApi?.tr("library.saved"));
     var isCurrent = ((entry?.id && entry?.id === mainInstance?.currentEntryId) || (!!entry?.url && entry?.url === mainInstance?.currentUrl));
     var activePlayback = mainInstance?.isPlaying === true || mainInstance?.playbackStarting === true;
     var icon = options?.icon || (isCurrent && activePlayback ? "disc" : "bookmark");
@@ -716,7 +716,7 @@ Item {
     return {
       "id": "tag-browse:" + tagName.toLowerCase(),
       "name": "#" + tagName,
-      "description": count === 1 ? (pluginApi?.tr("library.oneTrack") || "1 saved track") : (pluginApi?.tr("library.trackCount", {"count": count}) || (count + " saved tracks")),
+      "description": count === 1 ? (pluginApi?.tr("library.oneTrack")) : (pluginApi?.tr("library.trackCount", {"count": count})),
       "icon": "tag",
       "isTablerIcon": true,
       "isImage": false,
@@ -733,7 +733,7 @@ Item {
   function buildArtistBrowseItem(artistStat) {
     var artistName = String(artistStat?.name || "").trim();
     var count = Number(artistStat?.count || 0);
-    var parts = [count === 1 ? (pluginApi?.tr("library.oneTrack") || "1 saved track") : (pluginApi?.tr("library.trackCount", {"count": count}) || (count + " saved tracks"))];
+    var parts = [count === 1 ? (pluginApi?.tr("library.oneTrack")) : (pluginApi?.tr("library.trackCount", {"count": count}))];
     var playCountLabel = formatPlayCount(artistStat?.playCount || 0);
     if (playCountLabel) {
       parts.push(playCountLabel);
@@ -759,8 +759,8 @@ Item {
     var savedCount = (mainInstance?.visibleLibraryEntries() || []).length;
     return {
       "id": "saved-browse",
-      "name": pluginApi?.tr("library.savedTracks") || "Saved tracks",
-      "description": savedCount === 0 ? (pluginApi?.tr("library.libraryEmpty") || "Your library is empty.") : (savedCount === 1 ? (pluginApi?.tr("library.oneTrack") || "1 saved track") : (pluginApi?.tr("library.trackCount", {"count": savedCount}) || (savedCount + " saved tracks"))),
+      "name": pluginApi?.tr("library.savedTracks"),
+      "description": savedCount === 0 ? (pluginApi?.tr("library.libraryEmpty")) : (savedCount === 1 ? (pluginApi?.tr("library.oneTrack")) : (pluginApi?.tr("library.trackCount", {"count": savedCount}))),
       "icon": "bookmark",
       "isTablerIcon": true,
       "isImage": false,
@@ -777,8 +777,8 @@ Item {
   function buildImportFolderPromptItem() {
     return {
       "id": "import-folder-prompt",
-      "name": pluginApi?.tr("import.title") || "Import folder as playlist",
-      "description": pluginApi?.tr("import.desc") || "Use `import: /path/to/folder` to turn local audio into a playlist.",
+      "name": pluginApi?.tr("import.title"),
+      "description": pluginApi?.tr("import.desc"),
       "icon": "folder-plus",
       "isTablerIcon": true,
       "isImage": false,
@@ -798,9 +798,9 @@ Item {
     var playlistName = segments.length > 0 ? segments[segments.length - 1] : targetFolder;
     return {
       "id": "import-folder:" + targetFolder,
-      "name": pluginApi?.tr("import.title") || "Import folder as playlist",
+      "name": pluginApi?.tr("import.title"),
       "description": playlistName.length > 0
-          ? (pluginApi?.tr("import.createPlaylist", {"name": playlistName, "path": targetFolder}) || ("Create playlist \"" + playlistName + "\" from " + targetFolder))
+          ? (pluginApi?.tr("import.createPlaylist", {"name": playlistName, "path": targetFolder}))
           : targetFolder,
       "icon": "folder-plus",
       "isTablerIcon": true,
@@ -820,8 +820,8 @@ Item {
     var speedLabel = isFinite(target) ? target.toFixed(2) + "x" : String(value || "");
     return {
       "id": "speed:" + speedLabel,
-      "name": pluginApi?.tr("speed.setTo", {"speed": speedLabel}) || ("Set speed to " + speedLabel),
-      "description": pluginApi?.tr("speed.desc") || "Adjust current playback speed.",
+      "name": pluginApi?.tr("speed.setTo", {"speed": speedLabel}),
+      "description": pluginApi?.tr("speed.desc"),
       "icon": "gauge",
       "isTablerIcon": true,
       "isImage": false,
@@ -836,14 +836,14 @@ Item {
   function buildSpeedItems(speedQuery) {
     if (mainInstance?.isPlaying !== true) {
       return [
-            buildSearchHintItem(pluginApi?.tr("speed.noPlayback") || "Start playback first, then use `speed:1.05` or the preview buttons.")
+            buildSearchHintItem(pluginApi?.tr("speed.noPlayback"))
           ];
     }
 
     var currentSpeed = Number(mainInstance?.currentSpeed || 1);
     var queryText = String(speedQuery || "").trim();
     var items = [
-          buildSectionItem(pluginApi?.tr("speed.title") || "Playback Speed", pluginApi?.tr("speed.current", {"speed": currentSpeed.toFixed(2) + "x"}) || ("Current: " + currentSpeed.toFixed(2) + "x"), "gauge")
+          buildSectionItem(pluginApi?.tr("speed.title"), pluginApi?.tr("speed.current", {"speed": currentSpeed.toFixed(2) + "x"}), "gauge")
         ];
 
     if (queryText.length === 0) {
@@ -856,7 +856,7 @@ Item {
 
     var target = Number(queryText);
     if (!isFinite(target)) {
-      items.push(buildSearchHintItem(pluginApi?.tr("speed.useNumber") || "Use a number like `speed:1.05`."));
+      items.push(buildSearchHintItem(pluginApi?.tr("speed.useNumber")));
       return items;
     }
 
@@ -884,7 +884,7 @@ Item {
     var prefix = index === 0 ? "Next up" : "Queued";
     return {
       "id": entry?.id || ("queue:" + index),
-      "name": entry?.title || pluginApi?.tr("common.untitled") || "Untitled",
+      "name": entry?.title || pluginApi?.tr("common.untitled"),
       "description": buildDescription(entry, prefix),
       "icon": index === 0 ? "player-track-next" : "playlist",
       "isTablerIcon": true,
@@ -1022,44 +1022,44 @@ Item {
     items.push(buildImportFolderPromptItem());
 
     if (mainInstance?.showHomeRecent !== false && recentEntries.length > 0) {
-      items.push(buildSectionItem(pluginApi?.tr("home.recentlyPlayed") || "Recently Played", pluginApi?.tr("home.recentlyPlayedDesc") || "Your latest saved listens.", "history"));
+      items.push(buildSectionItem(pluginApi?.tr("home.recentlyPlayed"), pluginApi?.tr("home.recentlyPlayedDesc"), "history"));
       for (var i = 0; i < recentEntries.length; i++) {
         var relativeTime = MusicUtils.formatRelativeTime(recentEntries[i].lastPlayedAt);
         items.push(buildLibraryResultItem(recentEntries[i], {
-                                            "prefix": mainInstance?.showPlayStatsMetadata !== false && relativeTime ? ((pluginApi?.tr("home.recent") || "Recent") + " • " + relativeTime) : (pluginApi?.tr("home.recent") || "Recent"),
+                                            "prefix": mainInstance?.showPlayStatsMetadata !== false && relativeTime ? ((pluginApi?.tr("home.recent")) + " • " + relativeTime) : (pluginApi?.tr("home.recent")),
                                             "icon": recentEntries[i].id === mainInstance?.currentEntryId && mainInstance?.isPlaying ? "disc" : "history"
                                           }));
       }
     }
 
     if (mainInstance?.showHomeTop !== false && topEntries.length > 0) {
-      items.push(buildSectionItem(pluginApi?.tr("home.mostPlayed") || "Most Played", pluginApi?.tr("home.mostPlayedDesc") || "The tracks you come back to most.", "chart-bar"));
+      items.push(buildSectionItem(pluginApi?.tr("home.mostPlayed"), pluginApi?.tr("home.mostPlayedDesc"), "chart-bar"));
       for (var j = 0; j < topEntries.length; j++) {
         items.push(buildLibraryResultItem(topEntries[j], {
                                             "prefix": mainInstance?.showPlayStatsMetadata !== false
-                                                ? ((pluginApi?.tr("home.top") || "Top") + " • " + formatPlayCount(topEntries[j].playCount || 0))
-                                                : (pluginApi?.tr("home.top") || "Top"),
+                                                ? ((pluginApi?.tr("home.top")) + " • " + formatPlayCount(topEntries[j].playCount || 0))
+                                                : (pluginApi?.tr("home.top")),
                                             "icon": topEntries[j].id === mainInstance?.currentEntryId && mainInstance?.isPlaying ? "disc" : "chart-bar"
                                           }));
       }
     }
 
     if (mainInstance?.showHomeTags !== false && tagStats.length > 0) {
-      items.push(buildSectionItem(pluginApi?.tr("home.tags") || "Tags", pluginApi?.tr("home.tagsDesc") || "Browse your library by mood and theme.", "tag"));
+      items.push(buildSectionItem(pluginApi?.tr("home.tags"), pluginApi?.tr("home.tagsDesc"), "tag"));
       for (var k = 0; k < tagStats.length; k++) {
         items.push(buildTagBrowseItem(tagStats[k]));
       }
     }
 
     if (mainInstance?.showHomeArtists !== false && artistStats.length > 0) {
-      items.push(buildSectionItem(pluginApi?.tr("home.artists") || "Artists", pluginApi?.tr("home.artistsDesc") || "Jump through your saved library by uploader.", "microphone-2"));
+      items.push(buildSectionItem(pluginApi?.tr("home.artists"), pluginApi?.tr("home.artistsDesc"), "microphone-2"));
       for (var m = 0; m < artistStats.length; m++) {
         items.push(buildArtistBrowseItem(artistStats[m]));
       }
     }
 
     if (mainInstance?.showHomePlaylists !== false && playlists.length > 0) {
-      items.push(buildSectionItem(pluginApi?.tr("home.playlists") || "Playlists", pluginApi?.tr("home.playlistsDesc") || "Quick launch your saved lists.", "playlist"));
+      items.push(buildSectionItem(pluginApi?.tr("home.playlists"), pluginApi?.tr("home.playlistsDesc"), "playlist"));
       for (var n = 0; n < playlists.length; n++) {
         items.push(buildPlaylistHeaderItem(playlists[n]));
       }
@@ -1079,7 +1079,7 @@ Item {
 
     if (artistStats.length === 0) {
       return [
-            buildSearchHintItem(pluginApi?.tr("artists.noArtists") || "Save tracks with uploader metadata to browse artists here.")
+            buildSearchHintItem(pluginApi?.tr("artists.noArtists"))
           ];
     }
 
@@ -1095,7 +1095,7 @@ Item {
 
     if (matchedArtists.length === 0) {
       return [
-            buildSearchHintItem(pluginApi?.tr("artists.noMatch", {"query": queryText}) || ("No saved artists matched \"" + queryText + "\"."))
+            buildSearchHintItem(pluginApi?.tr("artists.noMatch", {"query": queryText}))
           ];
     }
 
@@ -1131,8 +1131,8 @@ Item {
         ];
     for (var i = 0; i < artistEntries.length; i++) {
       var artistPrefix = mainInstance?.showPlayStatsMetadata !== false && String(artistEntries[i].lastPlayedAt || "").length > 0
-          ? ((pluginApi?.tr("home.artist") || "Artist") + " • " + MusicUtils.formatRelativeTime(artistEntries[i].lastPlayedAt))
-          : (pluginApi?.tr("home.artist") || "Artist");
+          ? ((pluginApi?.tr("home.artist")) + " • " + MusicUtils.formatRelativeTime(artistEntries[i].lastPlayedAt))
+          : (pluginApi?.tr("home.artist"));
       items.push(buildLibraryResultItem(artistEntries[i], {
                                           "prefix": artistPrefix,
                                           "icon": artistEntries[i].id === mainInstance?.currentEntryId && mainInstance?.isPlaying ? "disc" : "music"
@@ -1178,12 +1178,12 @@ Item {
     previewItem.previewDelayMs = 500;
     previewItem.previewMetadataMode = mainInstance?.previewMetadataMode || pluginApi?.pluginSettings?.previewMetadataMode || pluginApi?.manifest?.metadata?.defaultSettings?.previewMetadataMode || "always";
     previewItem.sourceLabel = item.kind === "library"
-        ? (pluginApi?.tr("library.label") || "Library")
+        ? (pluginApi?.tr("library.label"))
         : (item.kind === "queue-entry"
                ? "Queue"
         : (item.kind === "search"
                ? (mainInstance?.providerLabel(itemProviderKey(item)) || "YouTube")
-               : (item.kind === "custom-url" || item.kind === "save-url" ? (pluginApi?.tr("common.customUrl") || "Custom URL") : (pluginApi?.tr("common.music") || "music-search"))));
+               : (item.kind === "custom-url" || item.kind === "save-url" ? (pluginApi?.tr("common.customUrl")) : (pluginApi?.tr("common.music")))));
     return previewItem;
   }
 
@@ -1235,8 +1235,8 @@ Item {
       results = results.concat(buildLibraryItems(savedQuery, savedQuery.length > 0 ? Math.max(libraryCount, 1) : 0));
       if (results.length <= 1) {
         results.push(buildSearchHintItem(savedQuery.length > 0
-                                             ? (pluginApi?.tr("library.noMatches", {"query": savedQuery}) || ("No saved tracks matched \"" + savedQuery + "\"."))
-                                             : (pluginApi?.tr("library.savedEmpty") || "Your saved library is empty.")));
+                                             ? (pluginApi?.tr("library.noMatches", {"query": savedQuery}))
+                                             : (pluginApi?.tr("library.savedEmpty"))));
       }
       return results;
     }
@@ -1259,7 +1259,7 @@ Item {
         results = results.concat(buildTagFilteredItems(tagQuery));
       }
       if (results.length <= 1) {
-        results.push(buildSearchHintItem(pluginApi?.tr("library.noTagged", {"tag": tagQuery}) || ("No tracks tagged \"" + tagQuery + "\".")));
+        results.push(buildSearchHintItem(pluginApi?.tr("library.noTagged", {"tag": tagQuery})));
       }
       return results;
     }
@@ -1280,7 +1280,7 @@ Item {
       var importFolderQuery = query.substring(7).trim();
       if (importFolderQuery.length === 0) {
         results.push(buildImportFolderPromptItem());
-        results.push(buildSearchHintItem(pluginApi?.tr("import.hint") || "Type `import: /path/to/folder` to import local audio files as a playlist."));
+        results.push(buildSearchHintItem(pluginApi?.tr("import.hint")));
         return results;
       }
       results.push(buildImportFolderItem(importFolderQuery));
@@ -1313,7 +1313,7 @@ Item {
       var filterLibraryCount = (mainInstance?.libraryEntries || []).length;
       results = results.concat(buildLibraryItems(query, filterLibraryCount > 0 ? filterLibraryCount : 0));
       if (results.length <= 1) {
-        results.push(buildSearchHintItem(pluginApi?.tr("library.noFilterMatches") || "No saved tracks matched your filters."));
+        results.push(buildSearchHintItem(pluginApi?.tr("library.noFilterMatches")));
       }
       return results;
     }
@@ -1324,14 +1324,14 @@ Item {
     var searchProviderLabel = mainInstance?.providerLabel(searchProvider) || "YouTube";
 
     if (searchContext.explicit && searchQuery.length === 0) {
-      results.push(buildSearchHintItem(pluginApi?.tr("search.typeMore", {"provider": searchProviderLabel}) || ("Type at least 2 characters to search " + searchProviderLabel + ".")));
+      results.push(buildSearchHintItem(pluginApi?.tr("search.typeMore", {"provider": searchProviderLabel})));
       return results;
     }
 
     results = results.concat(buildLibraryItems(searchQuery, 5));
 
     if (searchQuery.length < 2) {
-      results.push(buildSearchHintItem(pluginApi?.tr("search.typeMore", {"provider": searchProviderLabel}) || ("Type at least 2 characters to search " + searchProviderLabel + ".")));
+      results.push(buildSearchHintItem(pluginApi?.tr("search.typeMore", {"provider": searchProviderLabel})));
       return results;
     }
 
@@ -1354,7 +1354,7 @@ Item {
     }
 
     if (results.length === 1 || (results.length === 2 && results[1].kind === "loading")) {
-      results.push(buildSearchHintItem(pluginApi?.tr("search.noResults", {"query": searchQuery}) || ("No saved or search results for \"" + searchQuery + "\".")));
+      results.push(buildSearchHintItem(pluginApi?.tr("search.noResults", {"query": searchQuery})));
     }
 
     return results;
@@ -1423,7 +1423,7 @@ Item {
     }
 
     playlistPickerEntryId = entryId;
-    playlistPickerEntryTitle = targetEntry?.title || targetEntry?.name || pluginApi?.tr("common.untitled") || "Untitled";
+    playlistPickerEntryTitle = targetEntry?.title || targetEntry?.name || pluginApi?.tr("common.untitled");
     root.clearPlaylistRename();
     root.clearMetadataEditor();
     if (launcher) {
@@ -1438,7 +1438,7 @@ Item {
     }
 
     playlistRenameId = playlistId;
-    playlistRenameTitle = playlist?.name || pluginApi?.tr("playlists.untitled") || "Untitled Playlist";
+    playlistRenameTitle = playlist?.name || pluginApi?.tr("playlists.untitled");
     root.clearPlaylistSelection();
     root.clearMetadataEditor();
     if (launcher) {
@@ -1490,7 +1490,7 @@ Item {
     }
 
     tagEditorEntryId = entryId;
-    tagEditorEntryTitle = targetEntry?.title || targetEntry?.name || pluginApi?.tr("common.untitled") || "Untitled";
+    tagEditorEntryTitle = targetEntry?.title || targetEntry?.name || pluginApi?.tr("common.untitled");
     root.clearMetadataEditor();
     if (launcher) {
       launcher.setSearchText(commandName + " tag:");
@@ -1499,10 +1499,10 @@ Item {
 
   function metadataFieldLabel(field) {
     var normalized = String(field || "").trim().toLowerCase();
-    if (normalized === "title") return pluginApi?.tr("metadata.titleField") || "Title";
-    if (normalized === "artist" || normalized === "uploader") return pluginApi?.tr("metadata.artistField") || "Artist";
-    if (normalized === "album") return pluginApi?.tr("metadata.albumField") || "Album";
-    return pluginApi?.tr("metadata.label") || "Metadata";
+    if (normalized === "title") return pluginApi?.tr("metadata.titleField");
+    if (normalized === "artist" || normalized === "uploader") return pluginApi?.tr("metadata.artistField");
+    if (normalized === "album") return pluginApi?.tr("metadata.albumField");
+    return pluginApi?.tr("metadata.label");
   }
 
   function normalizeMetadataField(field) {
@@ -1536,7 +1536,7 @@ Item {
     }
 
     metadataEditorEntryId = entryId;
-    metadataEditorEntryTitle = targetEntry?.title || targetEntry?.name || pluginApi?.tr("common.untitled") || "Untitled";
+    metadataEditorEntryTitle = targetEntry?.title || targetEntry?.name || pluginApi?.tr("common.untitled");
     metadataEditorField = normalizeMetadataField(preferredField);
     root.clearPlaylistSelection();
     root.clearPlaylistRename();
@@ -1549,7 +1549,7 @@ Item {
   function buildStatusItem() {
     var playing = mainInstance?.isPlaying === true;
     var starting = mainInstance?.playbackStarting === true;
-    var title = playing || starting ? (mainInstance?.currentTitle || (starting ? (pluginApi?.tr("status.starting") || "Starting playback") : (pluginApi?.tr("status.nowPlaying") || "Now playing"))) : (pluginApi?.tr("status.ready") || "music-search ready");
+    var title = playing || starting ? (mainInstance?.currentTitle || (starting ? (pluginApi?.tr("status.starting")) : (pluginApi?.tr("status.nowPlaying")))) : (pluginApi?.tr("status.ready"));
     var savedCurrentEntry = mainInstance?.findSavedEntry({
                                                    "id": mainInstance?.currentEntryId || "",
                                                    "url": mainInstance?.currentUrl || ""
@@ -1566,9 +1566,9 @@ Item {
     var description = playing ? buildDescription({
                                                   "uploader": mainInstance?.currentUploader || "",
                                                   "duration": mainInstance?.currentDuration || 0
-                                                }, pluginApi?.tr("status.backgroundPlayback") || "Background mpv playback") : (starting
-                                                     ? (mainInstance?.playbackStartingMessage || (pluginApi?.tr("status.startingProviderPlayback", {"provider": mainInstance?.providerLabel() || "music"}) || ("Starting " + (mainInstance?.providerLabel() || "music") + " playback...")))
-                                                     : (mainInstance?.lastError ? (pluginApi?.tr("errors.lastError", {"error": mainInstance.lastError}) || ("Last error: " + mainInstance.lastError)) : (mainInstance?.lastNotice || (pluginApi?.tr("status.searchPrompt", {"provider": providerName}) || ("Search " + providerName + ", paste a URL, or open a saved track.")))));
+                                                }, pluginApi?.tr("status.backgroundPlayback")) : (starting
+                                                     ? (mainInstance?.playbackStartingMessage || (pluginApi?.tr("status.startingProviderPlayback", {"provider": mainInstance?.providerLabel() || "music"})))
+                                                     : (mainInstance?.lastError ? (pluginApi?.tr("errors.lastError", {"error": mainInstance.lastError})) : (mainInstance?.lastNotice || (pluginApi?.tr("status.searchPrompt", {"provider": providerName})))));
 
     return {
       "id": currentEntry.id,
@@ -1590,8 +1590,8 @@ Item {
 
   function buildStopItem() {
     return {
-      "name": pluginApi?.tr("actions.stopMusic") || "Stop music",
-      "description": mainInstance?.currentTitle ? (pluginApi?.tr("actions.stopTitle", {"title": mainInstance.currentTitle}) || ("Stop " + mainInstance.currentTitle)) : (pluginApi?.tr("actions.stopDesc") || "Stop background playback."),
+      "name": pluginApi?.tr("actions.stopMusic"),
+      "description": mainInstance?.currentTitle ? (pluginApi?.tr("actions.stopTitle", {"title": mainInstance.currentTitle})) : (pluginApi?.tr("actions.stopDesc")),
       "icon": "player-stop",
       "isTablerIcon": true,
       "isImage": false,
@@ -1608,8 +1608,8 @@ Item {
 
   function buildIdleStopItem() {
     return {
-      "name": pluginApi?.tr("actions.alreadyStopped") || "music-search is already stopped",
-      "description": pluginApi?.tr("actions.nothingPlaying") || "Nothing is currently playing.",
+      "name": pluginApi?.tr("actions.alreadyStopped"),
+      "description": pluginApi?.tr("actions.nothingPlaying"),
       "icon": "player-stop",
       "isTablerIcon": true,
       "isImage": false,
@@ -1620,7 +1620,7 @@ Item {
 
   function buildLoadingItem(query, provider) {
     return {
-      "name": pluginApi?.tr("search.searching", {"provider": mainInstance?.providerLabel(provider) || "YouTube"}) || ("Searching " + (mainInstance?.providerLabel(provider) || "YouTube")),
+      "name": pluginApi?.tr("search.searching", {"provider": mainInstance?.providerLabel(provider) || "YouTube"}),
       "description": query,
       "icon": "search",
       "isTablerIcon": true,
@@ -1633,8 +1633,8 @@ Item {
 
   function buildSearchErrorItem(message) {
     return {
-      "name": pluginApi?.tr("search.failed") || "Search failed",
-      "description": message || pluginApi?.tr("search.failedDefault") || "yt-dlp could not resolve results.",
+      "name": pluginApi?.tr("search.failed"),
+      "description": message || pluginApi?.tr("search.failedDefault"),
       "icon": "alert-circle",
       "isTablerIcon": true,
       "isImage": false,
@@ -1645,8 +1645,8 @@ Item {
 
   function buildSearchHintItem(message) {
     return {
-      "name": pluginApi?.tr("search.title") || "Search with music-search",
-      "description": message || pluginApi?.tr("search.hint") || "Try `>music-search burial`, `yt: burial`, `sc: artist`, `local: song`, `queue`, `#night`, `artist:name`, `rating:>=4`, `provider:local`, `playlist:name`, `speed:1.05`, or paste a URL.",
+      "name": pluginApi?.tr("search.title"),
+      "description": message || pluginApi?.tr("search.hint"),
       "icon": "search",
       "isTablerIcon": true,
       "isImage": false,
@@ -1657,7 +1657,7 @@ Item {
 
   function buildPlayUrlItem(urlText) {
     return {
-      "name": pluginApi?.tr("actions.playUrl") || "Play URL",
+      "name": pluginApi?.tr("actions.playUrl"),
       "description": String(urlText || "").trim(),
       "icon": "player-play",
       "isTablerIcon": true,
@@ -1670,14 +1670,14 @@ Item {
         if (launcher) {
           launcher.close();
         }
-        mainInstance?.playUrl(urlText, pluginApi?.tr("common.customUrl") || "Custom URL");
+        mainInstance?.playUrl(urlText, pluginApi?.tr("common.customUrl"));
       }
     };
   }
 
   function buildSaveUrlItem(urlText) {
     return {
-      "name": pluginApi?.tr("actions.saveUrl") || "Save URL to library",
+      "name": pluginApi?.tr("actions.saveUrl"),
       "description": String(urlText || "").trim(),
       "icon": "bookmark-plus",
       "isTablerIcon": true,
@@ -1694,8 +1694,8 @@ Item {
 
   function buildDownloadUrlItem(urlText) {
     return {
-      "name": pluginApi?.tr("actions.saveUrlMp3") || "Save URL as mp3",
-      "description": pluginApi?.tr("actions.downloadDesc") || "Download to ~/Music/Noctalia",
+      "name": pluginApi?.tr("actions.saveUrlMp3"),
+      "description": pluginApi?.tr("actions.downloadDesc"),
       "icon": "download",
       "isTablerIcon": true,
       "isImage": false,
@@ -1704,7 +1704,7 @@ Item {
       "url": String(urlText || "").trim(),
       "_score": 8,
       "onActivate": function () {
-        mainInstance?.downloadUrl(urlText, pluginApi?.tr("common.downloadedTrack") || "Downloaded Track");
+        mainInstance?.downloadUrl(urlText, pluginApi?.tr("common.downloadedTrack"));
       }
     };
   }
@@ -1716,8 +1716,8 @@ Item {
       if (query.length === 0) {
         return [
               {
-                "name": pluginApi?.tr("library.empty") || "Library is empty",
-                "description": pluginApi?.tr("library.emptyDesc") || "Save search results and they will show up here next time.",
+                "name": pluginApi?.tr("library.empty"),
+                "description": pluginApi?.tr("library.emptyDesc"),
                 "icon": "bookmark-off",
                 "isTablerIcon": true,
                 "isImage": false,
@@ -1769,7 +1769,7 @@ Item {
 
     return matchedEntries.map(function (entry) {
       return buildLibraryResultItem(entry, {
-                                      "prefix": entry?.isSaved === false ? (pluginApi?.tr("library.playlistOnly") || "Playlist-only") : (pluginApi?.tr("library.saved") || "Saved")
+                                      "prefix": entry?.isSaved === false ? (pluginApi?.tr("library.playlistOnly")) : (pluginApi?.tr("library.saved"))
                                     });
     });
   }
@@ -1805,12 +1805,12 @@ Item {
 
   function buildTagEditorHeaderItem(entry) {
     var tags = entry?.tags || [];
-    var countLabel = tags.length === 0 ? (pluginApi?.tr("tags.noTags") || "No tags yet") : (tags.length === 1 ? (pluginApi?.tr("tags.oneTag") || "1 tag") : (pluginApi?.tr("tags.tagCount", {"count": tags.length}) || (tags.length + " tags")));
+    var countLabel = tags.length === 0 ? (pluginApi?.tr("tags.noTags")) : (tags.length === 1 ? (pluginApi?.tr("tags.oneTag")) : (pluginApi?.tr("tags.tagCount", {"count": tags.length})));
 
     return {
       "id": entry?.id || "tag-editor",
-      "name": pluginApi?.tr("tags.manage") || "Manage tags",
-      "description": (entry?.title || tagEditorEntryTitle || pluginApi?.tr("common.untitled") || "Untitled") + " • " + countLabel,
+      "name": pluginApi?.tr("tags.manage"),
+      "description": (entry?.title || tagEditorEntryTitle || pluginApi?.tr("common.untitled")) + " • " + countLabel,
       "icon": "tag",
       "isTablerIcon": true,
       "isImage": false,
@@ -1827,7 +1827,7 @@ Item {
 
   function buildTagEditorHintItem(message) {
     return {
-      "name": pluginApi?.tr("tags.editor") || "Tag editor",
+      "name": pluginApi?.tr("tags.editor"),
       "description": message,
       "icon": "tag",
       "isTablerIcon": true,
@@ -1842,8 +1842,8 @@ Item {
     var normalizedTag = normalizeTagValue(tag);
     return {
       "id": (entry?.id || "tag") + ":" + normalizedTag.toLowerCase() + ":" + (assigned ? "remove" : "add"),
-      "name": assigned ? (pluginApi?.tr("tags.remove", {"tag": normalizedTag}) || ("Remove #" + normalizedTag)) : (pluginApi?.tr("tags.add", {"tag": normalizedTag}) || ("Add #" + normalizedTag)),
-      "description": assigned ? (pluginApi?.tr("tags.removeFrom", {"title": entry?.title || tagEditorEntryTitle || "this track"}) || ("Remove from " + (entry?.title || tagEditorEntryTitle || "this track"))) : (pluginApi?.tr("tags.applyTo", {"title": entry?.title || tagEditorEntryTitle || "this track"}) || ("Apply to " + (entry?.title || tagEditorEntryTitle || "this track"))),
+      "name": assigned ? (pluginApi?.tr("tags.remove", {"tag": normalizedTag})) : (pluginApi?.tr("tags.add", {"tag": normalizedTag})),
+      "description": assigned ? (pluginApi?.tr("tags.removeFrom", {"title": entry?.title || tagEditorEntryTitle || "this track"})) : (pluginApi?.tr("tags.applyTo", {"title": entry?.title || tagEditorEntryTitle || "this track"})),
       "icon": assigned ? "x" : "tag",
       "isTablerIcon": true,
       "isImage": false,
@@ -1871,7 +1871,7 @@ Item {
     var entry = currentTagEditorEntry();
     if (!entry) {
       return [
-            buildTagEditorHintItem(pluginApi?.tr("tags.chooseTrack") || "Choose a saved track first, then use the tag action to edit its tags.")
+            buildTagEditorHintItem(pluginApi?.tr("tags.chooseTrack"))
           ];
     }
 
@@ -1924,8 +1924,8 @@ Item {
 
     if (items.length === 1) {
       items.push(buildTagEditorHintItem(normalizedQuery.length > 0
-                                            ? (pluginApi?.tr("tags.noMatch", {"query": normalizedQuery}) || ("No tag matches \"" + normalizedQuery + "\" yet. Select the add action to create it."))
-                                            : (pluginApi?.tr("tags.hint") || "Type after `tag:` to add a new tag, or select an existing tag to remove it.")));
+                                            ? (pluginApi?.tr("tags.noMatch", {"query": normalizedQuery}))
+                                            : (pluginApi?.tr("tags.hint"))));
     }
 
     return items;
@@ -1944,8 +1944,8 @@ Item {
 
     return {
       "id": entry?.id || "metadata-editor",
-      "name": pluginApi?.tr("metadata.fieldEditor", {"field": label}) || (label + " editor"),
-      "description": (entry?.title || metadataEditorEntryTitle || (pluginApi?.tr("common.untitled") || "Untitled")) + (currentValue.length > 0 ? (" • " + currentValue) : (" • " + (pluginApi?.tr("metadata.currentlyEmpty") || "currently empty"))),
+      "name": pluginApi?.tr("metadata.fieldEditor", {"field": label}),
+      "description": (entry?.title || metadataEditorEntryTitle || (pluginApi?.tr("common.untitled"))) + (currentValue.length > 0 ? (" • " + currentValue) : (" • " + (pluginApi?.tr("metadata.currentlyEmpty")))),
       "icon": "pencil",
       "isTablerIcon": true,
       "isImage": false,
@@ -1957,7 +1957,7 @@ Item {
 
   function buildMetadataEditorHintItem(message) {
     return {
-      "name": pluginApi?.tr("metadata.edit") || "Edit metadata",
+      "name": pluginApi?.tr("metadata.edit"),
       "description": message,
       "icon": "pencil",
       "isTablerIcon": true,
@@ -1981,8 +1981,8 @@ Item {
 
     return {
       "id": String(entry?.id || "") + ":metadata:" + normalizedField,
-      "name": pluginApi?.tr("metadata.editField", {"field": metadataFieldLabel(normalizedField)}) || ("Edit " + metadataFieldLabel(normalizedField)),
-      "description": value.length > 0 ? value : (pluginApi?.tr("metadata.empty") || "Currently empty"),
+      "name": pluginApi?.tr("metadata.editField", {"field": metadataFieldLabel(normalizedField)}),
+      "description": value.length > 0 ? value : (pluginApi?.tr("metadata.empty")),
       "icon": "pencil",
       "isTablerIcon": true,
       "isImage": false,
@@ -2001,11 +2001,11 @@ Item {
     var normalizedField = normalizeMetadataField(field);
     var targetValue = String(value || "");
     var label = metadataFieldLabel(normalizedField);
-    var description = targetValue.trim().length > 0 ? targetValue : (pluginApi?.tr("metadata.clearValue") || "Clear value");
+    var description = targetValue.trim().length > 0 ? targetValue : (pluginApi?.tr("metadata.clearValue"));
 
     return {
       "id": String(entry?.id || "") + ":metadata:" + normalizedField + ":" + description.toLowerCase(),
-      "name": targetValue.trim().length > 0 ? (pluginApi?.tr("metadata.setField", {"field": label}) || ("Set " + label)) : (pluginApi?.tr("metadata.clearField", {"field": label}) || ("Clear " + label)),
+      "name": targetValue.trim().length > 0 ? (pluginApi?.tr("metadata.setField", {"field": label})) : (pluginApi?.tr("metadata.clearField", {"field": label})),
       "description": description,
       "icon": "check",
       "isTablerIcon": true,
@@ -2026,7 +2026,7 @@ Item {
     var entry = currentMetadataEditorEntry();
     if (!entry) {
       return [
-            buildMetadataEditorHintItem(pluginApi?.tr("metadata.chooseTrack") || "Choose a library track first, then use the edit action to update title, artist, or album.")
+            buildMetadataEditorHintItem(pluginApi?.tr("metadata.chooseTrack"))
           ];
     }
 
@@ -2049,7 +2049,7 @@ Item {
 
     if (field.length === 0) {
       return [
-            buildMetadataEditorHintItem(pluginApi?.tr("metadata.chooseField", {"title": entry?.title || metadataEditorEntryTitle || "this track"}) || ("Choose which field to edit for \"" + (entry?.title || metadataEditorEntryTitle || "this track") + "\".")),
+            buildMetadataEditorHintItem(pluginApi?.tr("metadata.chooseField", {"title": entry?.title || metadataEditorEntryTitle || "this track"})),
             buildMetadataFieldItem(entry, "title"),
             buildMetadataFieldItem(entry, "artist"),
             buildMetadataFieldItem(entry, "album")
@@ -2061,8 +2061,8 @@ Item {
     if (trimmedValue.length === 0) {
       items.push(buildMetadataEditorHintItem(
                    field === "album"
-                       ? (pluginApi?.tr("metadata.albumHint") || "Type a new album name, or choose the clear action to remove it.")
-                       : (pluginApi?.tr("metadata.typeNew", {"field": metadataFieldLabel(field).toLowerCase()}) || ("Type a new " + metadataFieldLabel(field).toLowerCase() + " value."))
+                       ? (pluginApi?.tr("metadata.albumHint"))
+                       : (pluginApi?.tr("metadata.typeNew", {"field": metadataFieldLabel(field).toLowerCase()}))
                  ));
       if (field === "album" && String(entry?.album || "").trim().length > 0) {
         items.push(buildMetadataApplyItem(entry, field, ""));
@@ -2138,13 +2138,13 @@ Item {
 
   function buildPlaylistHeaderItem(playlist) {
     var playlistId = playlist.id || "";
-    var playlistName = playlist.name || pluginApi?.tr("playlists.untitled") || "Untitled Playlist";
+    var playlistName = playlist.name || pluginApi?.tr("playlists.untitled");
     var entryCount = (playlist.entryIds || []).length;
     var sourceType = String(playlist.sourceType || "").trim();
     var sourceFolder = String(playlist.sourceFolder || "").trim();
-    var description = entryCount === 1 ? (pluginApi?.tr("playlists.oneTrack") || "1 track") : (pluginApi?.tr("playlists.trackCount", {"count": entryCount}) || (entryCount + " tracks"));
+    var description = entryCount === 1 ? (pluginApi?.tr("playlists.oneTrack")) : (pluginApi?.tr("playlists.trackCount", {"count": entryCount}));
     if (sourceType === "folder" && sourceFolder.length > 0) {
-      description += " • " + (pluginApi?.tr("playlists.syncedFolder") || "synced folder");
+      description += " • " + (pluginApi?.tr("playlists.syncedFolder"));
     }
 
     return {
@@ -2169,8 +2169,8 @@ Item {
   function buildPlaylistRenameHeaderItem(playlist) {
     return {
       "id": playlist?.id || "playlist-rename",
-      "name": pluginApi?.tr("playlists.rename") || "Rename playlist",
-      "description": playlist?.name || playlistRenameTitle || pluginApi?.tr("playlists.untitled") || "Untitled Playlist",
+      "name": pluginApi?.tr("playlists.rename"),
+      "description": playlist?.name || playlistRenameTitle || pluginApi?.tr("playlists.untitled"),
       "icon": "pencil",
       "isTablerIcon": true,
       "isImage": false,
@@ -2182,7 +2182,7 @@ Item {
 
   function buildPlaylistRenameHintItem(message) {
     return {
-      "name": pluginApi?.tr("playlists.renameTitle") || "Playlist rename",
+      "name": pluginApi?.tr("playlists.renameTitle"),
       "description": message,
       "icon": "pencil",
       "isTablerIcon": true,
@@ -2197,8 +2197,8 @@ Item {
     var targetName = String(name || "").trim();
     return {
       "id": String(playlist?.id || "") + ":rename:" + targetName.toLowerCase(),
-      "name": pluginApi?.tr("playlists.renameTo", {"name": targetName}) || ("Rename to \"" + targetName + "\""),
-      "description": pluginApi?.tr("playlists.updateTitle") || "Update playlist title.",
+      "name": pluginApi?.tr("playlists.renameTo", {"name": targetName}),
+      "description": pluginApi?.tr("playlists.updateTitle"),
       "icon": "pencil",
       "isTablerIcon": true,
       "isImage": false,
@@ -2215,7 +2215,7 @@ Item {
   }
 
   function buildPlaylistTrackItem(entry, playlist) {
-    var playlistName = playlist.name || pluginApi?.tr("playlists.untitled") || "Untitled Playlist";
+    var playlistName = playlist.name || pluginApi?.tr("playlists.untitled");
     var playlistId = playlist.id || "";
     return buildLibraryResultItem(entry, {
                                     "prefix": playlistName,
@@ -2230,8 +2230,8 @@ Item {
     var pendingEntryTitle = playlistPickerEntryTitle;
 
     return {
-      "name": pendingEntryId ? (pluginApi?.tr("playlists.createAndAdd", {"name": targetName}) || ("Create playlist \"" + targetName + "\" and add track")) : (pluginApi?.tr("playlists.create", {"name": targetName}) || ("Create playlist \"" + targetName + "\"")),
-      "description": pendingEntryId ? (pluginApi?.tr("playlists.addAfterCreate", {"title": pendingEntryTitle}) || ("Add " + pendingEntryTitle + " after creating it.")) : (pluginApi?.tr("playlists.createNew") || "Create a new playlist."),
+      "name": pendingEntryId ? (pluginApi?.tr("playlists.createAndAdd", {"name": targetName})) : (pluginApi?.tr("playlists.create", {"name": targetName})),
+      "description": pendingEntryId ? (pluginApi?.tr("playlists.addAfterCreate", {"title": pendingEntryTitle})) : (pluginApi?.tr("playlists.createNew")),
       "icon": "playlist",
       "isTablerIcon": true,
       "isImage": false,
@@ -2249,14 +2249,14 @@ Item {
 
   function buildPlaylistPickerItem(playlist) {
     var playlistId = playlist.id || "";
-    var playlistName = playlist.name || pluginApi?.tr("playlists.untitled") || "Untitled Playlist";
+    var playlistName = playlist.name || pluginApi?.tr("playlists.untitled");
     var entryCount = (playlist.entryIds || []).length;
     var pendingEntryId = playlistPickerEntryId;
 
     return {
       "id": playlistId,
-      "name": pluginApi?.tr("playlists.addTo", {"name": playlistName}) || ("Add to " + playlistName),
-      "description": entryCount === 1 ? (pluginApi?.tr("playlists.oneTrack") || "1 track") : (pluginApi?.tr("playlists.trackCount", {"count": entryCount}) || (entryCount + " tracks")),
+      "name": pluginApi?.tr("playlists.addTo", {"name": playlistName}),
+      "description": entryCount === 1 ? (pluginApi?.tr("playlists.oneTrack")) : (pluginApi?.tr("playlists.trackCount", {"count": entryCount})),
       "icon": "playlist",
       "isTablerIcon": true,
       "isImage": false,
@@ -2276,24 +2276,24 @@ Item {
     var playlist = currentPlaylistRenameTarget();
     if (!playlist) {
       return [
-            buildPlaylistRenameHintItem(pluginApi?.tr("playlists.chooseFirst") || "Choose a playlist first, then use the rename action.")
+            buildPlaylistRenameHintItem(pluginApi?.tr("playlists.chooseFirst"))
           ];
     }
 
     var items = [buildPlaylistRenameHeaderItem(playlist)];
     var targetName = String(playlistQuery || "").trim();
     if (targetName.length === 0) {
-      items.push(buildPlaylistRenameHintItem(pluginApi?.tr("playlists.typeNewName", {"name": playlist.name || playlistRenameTitle || "this playlist"}) || ("Type a new name for \"" + (playlist.name || playlistRenameTitle || "this playlist") + "\".")));
+      items.push(buildPlaylistRenameHintItem(pluginApi?.tr("playlists.typeNewName", {"name": playlist.name || playlistRenameTitle || "this playlist"})));
       return items;
     }
 
     if (String(playlist.name || "").trim().toLowerCase() === targetName.toLowerCase()) {
-      items.push(buildPlaylistRenameHintItem(pluginApi?.tr("playlists.typeDifferent") || "Type a different name to rename this playlist."));
+      items.push(buildPlaylistRenameHintItem(pluginApi?.tr("playlists.typeDifferent")));
       return items;
     }
 
     if (playlistNameTaken(playlist.id, targetName)) {
-      items.push(buildPlaylistRenameHintItem(pluginApi?.tr("playlists.alreadyExists", {"name": targetName}) || ("Playlist \"" + targetName + "\" already exists.")));
+      items.push(buildPlaylistRenameHintItem(pluginApi?.tr("playlists.alreadyExists", {"name": targetName})));
       return items;
     }
 
@@ -2309,8 +2309,8 @@ Item {
     if (playlistQuery.length === 0) {
       if (playlists.length === 0) {
         items.push({
-                     "name": pluginApi?.tr("playlists.none") || "No playlists",
-                     "description": pluginApi?.tr("playlists.createHint") || "Type `playlist:name` to create one.",
+                     "name": pluginApi?.tr("playlists.none"),
+                     "description": pluginApi?.tr("playlists.createHint"),
                      "icon": "playlist",
                      "isTablerIcon": true,
                      "isImage": false,
@@ -2370,8 +2370,8 @@ Item {
 
     if (items.length === 0) {
       items.push({
-                   "name": pluginApi?.tr("playlists.choose") || "Choose a playlist",
-                   "description": pluginApi?.tr("playlists.chooseFor", {"title": playlistPickerEntryTitle}) || ("Type a playlist name to create one for " + playlistPickerEntryTitle + "."),
+                   "name": pluginApi?.tr("playlists.choose"),
+                   "description": pluginApi?.tr("playlists.chooseFor", {"title": playlistPickerEntryTitle}),
                    "icon": "playlist",
                    "isTablerIcon": true,
                    "isImage": false,
@@ -2390,7 +2390,7 @@ Item {
 
     return {
       "id": entry.id || "",
-      "name": entry.title || pluginApi?.tr("common.untitled") || "Untitled",
+      "name": entry.title || pluginApi?.tr("common.untitled"),
       "description": buildDescription(entry, mainInstance?.providerLabel(entryProvider) || "YouTube"),
       "icon": "music",
       "isTablerIcon": true,
@@ -2453,14 +2453,14 @@ Item {
       return [
             {
               "icon": "arrows-sort",
-              "tooltip": pluginApi?.tr("tooltip.sort", {"sort": mainInstance?.sortLabel() || "Date"}) || ("Sort: " + (mainInstance?.sortLabel() || "Date")),
+              "tooltip": pluginApi?.tr("tooltip.sort", {"sort": mainInstance?.sortLabel() || "Date"}),
               "action": function () {
                 mainInstance?.cycleSortBy();
               }
             },
             {
               "icon": "switch-horizontal",
-              "tooltip": pluginApi?.tr("tooltip.switchProvider", {"provider": mainInstance?.providerLabel() || "YouTube"}) || ("Switch provider (" + (mainInstance?.providerLabel() || "YouTube") + ")"),
+              "tooltip": pluginApi?.tr("tooltip.switchProvider", {"provider": mainInstance?.providerLabel() || "YouTube"}),
               "action": function () {
                 mainInstance?.cycleProvider();
               }
@@ -2478,7 +2478,7 @@ Item {
       var statusActions = [
             {
               "icon": "playlist-add",
-              "tooltip": pluginApi?.tr("tooltip.addToQueue") || "Add to queue",
+              "tooltip": pluginApi?.tr("tooltip.addToQueue"),
               "action": function () {
                 mainInstance?.enqueueEntry(item);
               }
@@ -2488,7 +2488,7 @@ Item {
       if (!statusSavedEntry) {
         statusActions.unshift({
                                 "icon": "bookmark-plus",
-                                "tooltip": pluginApi?.tr("tooltip.saveToLibrary") || "Save to library",
+                                "tooltip": pluginApi?.tr("tooltip.saveToLibrary"),
                                 "action": function () {
                                   mainInstance?.saveEntry(statusLibraryEntry || item);
                                 }
@@ -2498,7 +2498,7 @@ Item {
       if (canSaveAsMp3(statusLibraryEntry || item)) {
         statusActions.splice(statusActions.length > 0 ? 1 : 0, 0, {
                                "icon": "download",
-                               "tooltip": pluginApi?.tr("tooltip.saveMp3Current") || "Save current track as mp3",
+                               "tooltip": pluginApi?.tr("tooltip.saveMp3Current"),
                                "action": function () {
                                  mainInstance?.downloadCurrentTrack();
                                }
@@ -2508,7 +2508,7 @@ Item {
       if (mainInstance?.isPaused) {
         statusActions.unshift({
                                 "icon": "player-play",
-                                "tooltip": pluginApi?.tr("tooltip.resume") || "Resume",
+                                "tooltip": pluginApi?.tr("tooltip.resume"),
                                 "action": function () {
                                   mainInstance?.resumePlayback();
                                 }
@@ -2516,7 +2516,7 @@ Item {
       } else {
         statusActions.unshift({
                                 "icon": "player-pause",
-                                "tooltip": pluginApi?.tr("tooltip.pause") || "Pause",
+                                "tooltip": pluginApi?.tr("tooltip.pause"),
                                 "action": function () {
                                   mainInstance?.pausePlayback();
                                 }
@@ -2526,7 +2526,7 @@ Item {
       if (statusLibraryEntry) {
         statusActions.push({
                              "icon": "pencil",
-                             "tooltip": pluginApi?.tr("tooltip.editMetadata") || "Edit metadata",
+                             "tooltip": pluginApi?.tr("tooltip.editMetadata"),
                              "action": function () {
                                root.startMetadataEditing(statusLibraryEntry, "");
                              }
@@ -2536,14 +2536,14 @@ Item {
       if (statusSavedEntry) {
         statusActions.push({
                              "icon": "tag",
-                             "tooltip": pluginApi?.tr("tooltip.manageTags") || "Manage tags",
+                             "tooltip": pluginApi?.tr("tooltip.manageTags"),
                              "action": function () {
                                root.startTagEditing(statusSavedEntry);
                              }
                            });
         statusActions.push({
                              "icon": "playlist",
-                             "tooltip": pluginApi?.tr("tooltip.addSavedToPlaylist") || "Add saved track to playlist",
+                             "tooltip": pluginApi?.tr("tooltip.addSavedToPlaylist"),
                              "action": function () {
                                root.startPlaylistSelection(statusSavedEntry);
                              }
@@ -2552,7 +2552,7 @@ Item {
 
       statusActions.push({
                            "icon": "switch-horizontal",
-                           "tooltip": pluginApi?.tr("tooltip.switchProvider", {"provider": mainInstance?.providerLabel() || "YouTube"}) || ("Switch provider (" + (mainInstance?.providerLabel() || "YouTube") + ")"),
+                           "tooltip": pluginApi?.tr("tooltip.switchProvider", {"provider": mainInstance?.providerLabel() || "YouTube"}),
                            "action": function () {
                              mainInstance?.cycleProvider();
                            }
@@ -2567,35 +2567,35 @@ Item {
         var savedActions = [
               {
                 "icon": "playlist-add",
-                "tooltip": pluginApi?.tr("tooltip.addToQueue") || "Add to queue",
+                "tooltip": pluginApi?.tr("tooltip.addToQueue"),
                 "action": function () {
                   mainInstance?.enqueueEntry(item);
                 }
               },
               {
                 "icon": "pencil",
-                "tooltip": pluginApi?.tr("tooltip.editMetadata") || "Edit metadata",
+                "tooltip": pluginApi?.tr("tooltip.editMetadata"),
                 "action": function () {
                   root.startMetadataEditing(savedEntry, "");
                 }
               },
               {
                 "icon": "tag",
-                "tooltip": pluginApi?.tr("tooltip.manageTags") || "Manage tags",
+                "tooltip": pluginApi?.tr("tooltip.manageTags"),
                 "action": function () {
                   root.startTagEditing(savedEntry);
                 }
               },
               {
                 "icon": "playlist",
-                "tooltip": pluginApi?.tr("tooltip.addToPlaylist") || "Add to playlist",
+                "tooltip": pluginApi?.tr("tooltip.addToPlaylist"),
                 "action": function () {
                   root.startPlaylistSelection(savedEntry);
                 }
               },
               {
                 "icon": "bookmark-off",
-                "tooltip": pluginApi?.tr("tooltip.removeFromLibrary") || "Remove from library",
+                "tooltip": pluginApi?.tr("tooltip.removeFromLibrary"),
                 "action": function () {
                   mainInstance?.removeEntry(savedEntry.id);
                 }
@@ -2604,7 +2604,7 @@ Item {
         if (canSaveAsMp3(savedEntry)) {
           savedActions.splice(1, 0, {
                                "icon": "download",
-                               "tooltip": pluginApi?.tr("tooltip.saveMp3") || "Save as mp3",
+                               "tooltip": pluginApi?.tr("tooltip.saveMp3"),
                                "action": function () {
                                  mainInstance?.downloadEntry(item);
                                }
@@ -2616,21 +2616,21 @@ Item {
       var searchActions = [
               {
                 "icon": "playlist-add",
-                "tooltip": pluginApi?.tr("tooltip.addToQueue") || "Add to queue",
+                "tooltip": pluginApi?.tr("tooltip.addToQueue"),
                 "action": function () {
                   mainInstance?.enqueueEntry(item);
               }
             },
             {
               "icon": "bookmark-plus",
-              "tooltip": pluginApi?.tr("tooltip.saveToLibrary") || "Save to library",
+              "tooltip": pluginApi?.tr("tooltip.saveToLibrary"),
               "action": function () {
                 mainInstance?.saveEntry(item);
               }
             },
               {
                 "icon": "playlist",
-                "tooltip": pluginApi?.tr("tooltip.saveFirst") || "Save first, then add to a playlist",
+                "tooltip": pluginApi?.tr("tooltip.saveFirst"),
                 "action": function () {
                   mainInstance?.saveEntry(item);
                 }
@@ -2639,7 +2639,7 @@ Item {
       if (canSaveAsMp3(item)) {
         searchActions.splice(2, 0, {
                                 "icon": "download",
-                                "tooltip": pluginApi?.tr("tooltip.saveMp3") || "Save as mp3",
+                                "tooltip": pluginApi?.tr("tooltip.saveMp3"),
                                 "action": function () {
                                   mainInstance?.downloadEntry(item);
                                 }
@@ -2652,35 +2652,35 @@ Item {
       var libraryActions = [
             {
               "icon": "star",
-              "tooltip": pluginApi?.tr("tooltip.rate", {"rating": formatRating(item.rating || 0) + (item.rating ? "" : "unrated")}) || ("Rate (" + formatRating(item.rating || 0) + (item.rating ? "" : "unrated") + ")"),
+              "tooltip": pluginApi?.tr("tooltip.rate", {"rating": formatRating(item.rating || 0) + (item.rating ? "" : "unrated")}),
               "action": function () {
                 mainInstance?.cycleRating(item.id);
               }
             },
             {
               "icon": "pencil",
-              "tooltip": pluginApi?.tr("tooltip.editMetadata") || "Edit metadata",
+              "tooltip": pluginApi?.tr("tooltip.editMetadata"),
               "action": function () {
                 root.startMetadataEditing(item, "");
               }
             },
             {
               "icon": "tag",
-              "tooltip": pluginApi?.tr("tooltip.manageTags") || "Manage tags",
+              "tooltip": pluginApi?.tr("tooltip.manageTags"),
               "action": function () {
                 root.startTagEditing(item);
               }
             },
             {
               "icon": "playlist-add",
-              "tooltip": pluginApi?.tr("tooltip.addToQueue") || "Add to queue",
+              "tooltip": pluginApi?.tr("tooltip.addToQueue"),
               "action": function () {
                 mainInstance?.enqueueEntry(item);
               }
             },
             {
               "icon": "playlist",
-              "tooltip": pluginApi?.tr("tooltip.addToPlaylist") || "Add to playlist",
+              "tooltip": pluginApi?.tr("tooltip.addToPlaylist"),
               "action": function () {
                 root.startPlaylistSelection(item);
               }
@@ -2690,7 +2690,7 @@ Item {
       if (canSaveAsMp3(item)) {
         libraryActions.push({
                               "icon": "download",
-                              "tooltip": pluginApi?.tr("tooltip.saveMp3") || "Save as mp3",
+                              "tooltip": pluginApi?.tr("tooltip.saveMp3"),
                               "action": function () {
                                 mainInstance?.downloadEntry(item);
                               }
@@ -2700,7 +2700,7 @@ Item {
       if (item.playlistId) {
         libraryActions.push({
                               "icon": "playlist-x",
-                              "tooltip": pluginApi?.tr("tooltip.removeFromPlaylist") || "Remove from playlist",
+                              "tooltip": pluginApi?.tr("tooltip.removeFromPlaylist"),
                               "action": function () {
                                 mainInstance?.removeFromPlaylist(item.playlistId, item.id);
                               }
@@ -2709,7 +2709,7 @@ Item {
 
       libraryActions.push({
                             "icon": "bookmark-off",
-                            "tooltip": pluginApi?.tr("tooltip.removeFromLibrary") || "Remove from library",
+                            "tooltip": pluginApi?.tr("tooltip.removeFromLibrary"),
                             "action": function () {
                               mainInstance?.removeEntry(item.id);
                             }
@@ -2722,7 +2722,7 @@ Item {
       var playlistActions = [
             {
               "icon": "player-play",
-              "tooltip": pluginApi?.tr("tooltip.playPlaylist") || "Play playlist",
+              "tooltip": pluginApi?.tr("tooltip.playPlaylist"),
               "action": function () {
                 if (launcher) {
                   launcher.close();
@@ -2732,7 +2732,7 @@ Item {
             },
             {
               "icon": "arrows-shuffle",
-              "tooltip": pluginApi?.tr("tooltip.shufflePlay") || "Shuffle play",
+              "tooltip": pluginApi?.tr("tooltip.shufflePlay"),
               "action": function () {
                 if (launcher) {
                   launcher.close();
@@ -2742,21 +2742,21 @@ Item {
             },
             {
               "icon": "playlist-add",
-              "tooltip": pluginApi?.tr("tooltip.queuePlaylist") || "Queue playlist",
+              "tooltip": pluginApi?.tr("tooltip.queuePlaylist"),
               "action": function () {
                 mainInstance?.queuePlaylist(item.id, false);
               }
             },
             {
               "icon": "pencil",
-              "tooltip": pluginApi?.tr("tooltip.renamePlaylist") || "Rename playlist",
+              "tooltip": pluginApi?.tr("tooltip.renamePlaylist"),
               "action": function () {
                 root.startPlaylistRename(item);
               }
             },
             {
               "icon": "trash",
-              "tooltip": pluginApi?.tr("tooltip.deletePlaylist") || "Delete playlist",
+              "tooltip": pluginApi?.tr("tooltip.deletePlaylist"),
               "action": function () {
                 root.clearPlaylistRename();
                 root.clearPlaylistSelection();
@@ -2771,7 +2771,7 @@ Item {
       if (String(item.sourceType || "") === "folder" && String(item.sourceFolder || "").trim().length > 0) {
         playlistActions.splice(3, 0, {
                                 "icon": "refresh",
-                                "tooltip": pluginApi?.tr("tooltip.syncFolder") || "Sync folder playlist",
+                                "tooltip": pluginApi?.tr("tooltip.syncFolder"),
                                 "action": function () {
                                   mainInstance?.syncFolderPlaylist(item.id);
                                 }
@@ -2785,23 +2785,23 @@ Item {
       return [
             {
               "icon": "playlist-add",
-              "tooltip": pluginApi?.tr("tooltip.addToQueue") || "Add to queue",
+              "tooltip": pluginApi?.tr("tooltip.addToQueue"),
               "action": function () {
-                mainInstance?.enqueueUrl(item.url, pluginApi?.tr("common.queuedUrl") || "Queued URL");
+                mainInstance?.enqueueUrl(item.url, pluginApi?.tr("common.queuedUrl"));
               }
             },
             {
               "icon": "bookmark-plus",
-              "tooltip": pluginApi?.tr("tooltip.saveUrlToLibrary") || "Save URL to library",
+              "tooltip": pluginApi?.tr("tooltip.saveUrlToLibrary"),
               "action": function () {
                 mainInstance?.saveUrl(item.url);
               }
             },
             {
               "icon": "download",
-              "tooltip": pluginApi?.tr("tooltip.saveMp3") || "Save as mp3",
+              "tooltip": pluginApi?.tr("tooltip.saveMp3"),
               "action": function () {
-                mainInstance?.downloadUrl(item.url, pluginApi?.tr("common.downloadedTrack") || "Downloaded Track");
+                mainInstance?.downloadUrl(item.url, pluginApi?.tr("common.downloadedTrack"));
               }
             }
           ];
