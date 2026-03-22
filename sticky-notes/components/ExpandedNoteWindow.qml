@@ -123,55 +123,45 @@ Item {
           anchors.fill: parent
           anchors.margins: Style.marginM
 
-          Flickable {
-            id: previewFlickable
+          NScrollView {
+            id: previewScrollView
             anchors.fill: parent
             visible: !root.editing
-            clip: true
-            contentWidth: width
-            contentHeight: Math.ceil(previewText.contentHeight) + 1
-            boundsBehavior: Flickable.StopAtBounds
-            flickableDirection: Flickable.VerticalFlick
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+            gradientColor: Qt.tint(root.noteColor || "#FFF9C4", Qt.rgba(1, 1, 1, 0.28))
 
-            ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
-
-            TextEdit {
+            TextArea {
               id: previewText
-              width: previewFlickable.width
-              height: contentHeight
               text: Markdown.render(root.content || "", { noteColor: root.noteColor || "#FFF9C4" })
               textFormat: TextEdit.RichText
               font.pointSize: Style.fontSizeM * Style.uiScaleRatio
               color: "#37474F"
-              wrapMode: TextEdit.Wrap
+              wrapMode: TextArea.Wrap
               readOnly: true
               selectByMouse: true
               activeFocusOnTab: false
+              background: Item {}
+
               onLinkActivated: (link) => Qt.openUrlExternally(link)
             }
           }
 
-          Flickable {
-            id: editorFlickable
+          NScrollView {
+            id: editorScrollView
             anchors.fill: parent
             visible: root.editing
-            clip: true
-            contentWidth: width
-            contentHeight: Math.ceil(editor.contentHeight) + 1
-            boundsBehavior: Flickable.StopAtBounds
-            flickableDirection: Flickable.VerticalFlick
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+            gradientColor: Qt.tint(root.noteColor || "#FFF9C4", Qt.rgba(1, 1, 1, 0.28))
 
-            ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
-
-            TextEdit {
+            TextArea {
               id: editor
-              width: editorFlickable.width
               color: "#3E2723"
               font.pointSize: Style.fontSizeM * Style.uiScaleRatio
-              wrapMode: TextEdit.Wrap
+              wrapMode: TextArea.Wrap
               selectByMouse: true
               selectByKeyboard: true
               persistentSelection: true
+              background: Item {}
 
               Shortcut {
                 sequences: [StandardKey.Copy]

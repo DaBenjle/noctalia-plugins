@@ -52,7 +52,7 @@ Rectangle {
     : Math.min(
         Math.max(
           100 * Style.uiScaleRatio,
-          noteFlickable.contentHeight + noteCard.footerHeight + (Style.marginM * 2) + Style.marginXS
+          noteContent.contentHeight + noteCard.footerHeight + (Style.marginM * 2) + Style.marginXS
         ),
         300 * Style.uiScaleRatio
       )
@@ -326,11 +326,13 @@ Rectangle {
         id: editFlickable
         Layout.fillWidth: true
         Layout.fillHeight: true
+        clip: true
         contentWidth: width
         contentHeight: Math.ceil(editTextArea.contentHeight) + 1
-        clip: true
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.VerticalFlick
+
+        ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
 
         TextEdit {
           id: editTextArea

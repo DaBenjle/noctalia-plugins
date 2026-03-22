@@ -57,6 +57,8 @@ Rectangle {
       boundsBehavior: Flickable.StopAtBounds
       flickableDirection: Flickable.VerticalFlick
 
+      ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
+
       TextEdit {
         id: textArea
         width: flickable.width
