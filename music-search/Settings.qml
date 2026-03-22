@@ -15,7 +15,7 @@ ColumnLayout {
   readonly property string currentSortBy: root.mainInstance?.currentSortBy ?? "date"
   readonly property string currentYtPlayerClient: root.mainInstance?.ytPlayerClient ?? "android"
   readonly property string currentDownloadDirectory: root.mainInstance?.downloadDirectory ?? root.defaultDownloadDirectory
-  readonly property int currentDownloadCacheMaxMb: Number(root.mainInstance?.downloadCacheMaxMb ?? 0)
+  readonly property int currentDownloadCacheMaxMb: root.mainInstance?.downloadCacheMaxMb ?? 0
   readonly property string previewMetadataMode: pluginApi?.pluginSettings?.previewMetadataMode
       ?? root.defaults.previewMetadataMode
       ?? "always"
@@ -170,7 +170,7 @@ ColumnLayout {
 
     NButton {
       text: pluginApi?.tr("settings.downloads.applyFolder")
-      enabled: String(root.editDownloadDirectory || "").trim().length > 0
+      enabled: (root.editDownloadDirectory || "").trim().length > 0
       onClicked: root.applyDownloadDirectory()
     }
   }
