@@ -27,7 +27,7 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           # Get all the qml file changes
-          diff_changes=$(gh pr diff "$PR_NUMBER" |
+          diff_changes=$(git diff origin/main...HEAD |
             awk '/^diff --git.*\.qml /{found=1} /^diff --git/{if(!/\.qml /) found=0} found{print}' |
             grep -v "^(index|\+\+\+|-)") || (
             echo "Failed to get the diff changes from $PR_NUMBER"
