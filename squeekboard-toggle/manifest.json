@@ -4,9 +4,8 @@
   "version": "1.0.0",
   "minNoctaliaVersion": "4.4.3",
   "author": "blackteaextract",
-  "official": false,
   "license": "MIT",
-  "repository": "",
+  "repository": "https://github.com/noctalia-dev/noctalia-plugins",
   "description": "Toggle squeekboard on-screen keyboard with visual state indicator.",
   "tags": [
     "System",
