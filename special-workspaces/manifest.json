@@ -1,7 +1,7 @@
 {
   "id": "special-workspaces",
   "name": "Special Workspaces (Hyprland)",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "minNoctaliaVersion": "4.4.0",
   "author": "Qholin",
   "license": "MIT",
