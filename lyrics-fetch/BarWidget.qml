@@ -315,7 +315,7 @@ Item {
             x: scrollX
 
             RowLayout {
-                spacing: Style.defaultSpacing
+                spacing: root.widgetWidth
 
                 NText {
                     id: titleText
