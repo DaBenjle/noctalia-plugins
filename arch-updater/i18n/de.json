@@ -1,0 +1,64 @@
+{
+    "tooltip": {
+        "availableUpdates": "Verfügbare Updates",
+        "noctaliaUpdates": "Noctalia Updates verfügbar"
+    },
+    "context": {
+        "refresh": "Aktualisieren",
+        "update": "Update",
+        "settings": "Einstellungen"
+    },
+    "panel": {
+        "name": "Name",
+        "oldVer": "Alte Version",
+        "newVer": "Neue Version",
+        "refresh": "Aktualisieren",
+        "update": "Update",
+        "settings": "Einstellungen"
+    },
+    "toast": {
+        "refreshed": "Verfügbare Updates aktualisiert!"
+    },
+    "settings": {
+        "commands": "Befehle",
+        "nameCmd": "Name Befehl",
+        "nameCmdDesc": "Befehl zum Abrufen der Namen von Programmen, für die Updates verfügbar sind",
+        "oldVerCmd": "Befehl für alte Versionen",
+        "oldVerCmdDesc": "Befehl zum Abrufen der aktuellen Version von Programmen mit Updates",
+        "newVerCmd": "New Version Command",
+        "newVerCmdDesc": "Befehl zum Abrufen der neuen Version von Programmen mit Updates",
+        "updateCmd": "Update Befehl",
+        "updateCmdDesc": "Befehl zum Aktualisieren",
+        "flatpak": "Flatpak",
+        "flatpakDesc": "Aktiviere die Überprüfung von Flatpak Updates",
+        "noctalia": "Noctalia",
+        "noctaliaDesc": "Hervorhebung aktivieren, wenn Noctalia-Komponenten ein Update haben",
+        "toast": "Toast",
+        "toastDesc": "Aktualisierungen für Toast-Meldungen aktivieren",
+        "desktopTip": "Desktop Hover Hinweis",
+        "desktopTipDesc": "Hover-Hinweis für Desktop-Widget aktivieren",
+        "hideOnEmpty": "Ausblenden wenn leer",
+        "hideOnEmptyDesc": "Ausblenden, wenn keine Aktualisierungen verfügbar sind",
+        "refreshTimer": "Aktualisierungs-Timer",
+        "refreshTimerDesc": "Nach einer bestimmten Zeit aktualisieren",
+        "interval": "Aktualisierungsintervall",
+        "intervalDesc": "Aktualisierungsintervall in Minuten: "
+    },
+    "launcher": {
+        "refreshDesc": "Verfügbare Updates abrufen",
+        "updateDesc": "System aktualisieren"
+    },
+    "ccw": {
+        "tooltip": "Updates Panel öffnen"
+    },
+    "desktop": {
+        "header": "Update verfügbar",
+        "header-plural": "Updates verfügbar",
+        "name": "Name",
+        "oldVer": "Alte Version",
+        "newVer": "Neue Version",
+        "tipLeft": "Zum Aktualisieren linksklicken",
+        "tipMiddle": "Mittelklick zum Updaten",
+        "tipRight": "Mit Rechtsklick die Einstellungen öffnen"
+    }
+}
