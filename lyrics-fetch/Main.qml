@@ -25,19 +25,23 @@ Item {
     property int lyricInterval: 0
     property bool isLoading: false
     property string lastLyric: ""
-    property bool showWhenPaused: pluginApi?.pluginSettings?.showWhenPaused ?? true
+    property bool hideWhenPaused: pluginApi?.pluginSettings?.hideWhenPaused ?? false
+    property bool hideWhenEmpty: pluginApi?.pluginSettings?.hideWhenEmpty ?? true
 
     property string currentLyric: {
         if (currentStatus === "Stopped" || currentStatus === "")
-            return ""
-        if (currentStatus === "Paused") {
-            if (showWhenPaused)
-                return pluginApi?.tr("lyrics.paused") || "Music paused"
-            else
+            if (hideWhenEmpty)
                 return ""
+            else
+                return pluginApi?.tr("lyrics.stopped")
+        if (currentStatus === "Paused") {
+            if (hideWhenPaused)
+                return ""
+            else
+                return pluginApi?.tr("lyrics.paused")
         }
         if (isLoading)
-            return pluginApi?.tr("lyrics.loading") || "Wait Loading 🪿"
+            return pluginApi?.tr("lyrics.loading")
         if (lastLyric !== "")
             return lastLyric
         return "​"

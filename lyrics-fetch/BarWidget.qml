@@ -137,7 +137,7 @@ Item {
 
             model: [
                 {
-                    "label": pluginApi?.tr("settings.title") || "Settings",
+                    "label": pluginApi?.tr("settings.title"),
                     "action": "settings",
                     "icon": "settings"
                 }

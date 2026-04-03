@@ -25,11 +25,12 @@
         },
 
         "hide-when-empty": "Hide when empty",
-        "show-when-paused": "Show widget when paused"
+        "hide-when-paused": "Hide when paused"
     },
 
     "lyrics": {
         "paused": "Music paused",
-        "loading": "Wait Loading 🪿"
+        "loading": "Wait Loading 🪿",
+        "stopped": "No song playing"
     }
 }

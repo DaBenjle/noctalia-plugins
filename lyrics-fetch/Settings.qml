@@ -15,7 +15,7 @@ ColumnLayout {
     property bool draftHideWhenEmpty: pluginApi?.pluginSettings?.hideWhenEmpty ?? true
     property string draftFontFamily: pluginApi?.pluginSettings?.fontFamily ?? "Inter"
     property bool draftAdaptScrollSpeed: pluginApi?.pluginSettings?.adaptScrollSpeed ?? true
-    property bool draftShowWhenPaused: pluginApi?.pluginSettings?.showWhenPaused ?? true
+    property bool draftHideWhenPaused: pluginApi?.pluginSettings?.hideWhenPaused ?? true
 
     spacing: Style.marginM
 
@@ -25,7 +25,7 @@ ColumnLayout {
             pluginApi.pluginSettings.scrollSpeed = draftSpeed;
             pluginApi.pluginSettings.scrollMode = draftMode;
             pluginApi.pluginSettings.adaptScrollSpeed = draftAdaptScrollSpeed;
-            pluginApi.pluginSettings.showWhenPaused = draftShowWhenPaused;
+            pluginApi.pluginSettings.hideWhenPaused = draftHideWhenPaused;
             pluginApi.pluginSettings.fontSize = draftFontSize;
             pluginApi.pluginSettings.hideWhenEmpty = draftHideWhenEmpty;
             // Save the selected font
@@ -35,23 +35,23 @@ ColumnLayout {
     }
 
     NSearchableComboBox {
-        label: pluginApi?.tr("settings.font.title") || "Font Family"
-        description: pluginApi?.tr("settings.font.desc") || "Select the font for lyrics."
+        label: pluginApi?.tr("settings.font.title")
+        description: pluginApi?.tr("settings.font.desc")
         Layout.fillWidth: true
 
         model: FontService.availableFonts
 
         currentKey: draftFontFamily
-        placeholder: pluginApi?.tr("settings.font.placeholder") || "Select a font..."
-        searchPlaceholder: pluginApi?.tr("settings.font.search-placeholder") || "Search fonts..."
+        placeholder: pluginApi?.tr("settings.font.placeholder")
+        searchPlaceholder: pluginApi?.tr("settings.font.search-placeholder")
         popupHeight: 300
 
         onSelected: key => draftFontFamily = key
     }
 
     NLabel {
-        label: pluginApi?.tr("settings.font.size") || "Font Size"
-        description: pluginApi?.tr("settings.font.size-desc") || "Text size in points."
+        label: pluginApi?.tr("settings.font.size")
+        description: pluginApi?.tr("settings.font.size-desc")
     }
 
     RowLayout {
@@ -73,7 +73,7 @@ ColumnLayout {
     }
 
     NLabel {
-        label: pluginApi?.tr("settings.width") || "Widget Width"
+        label: pluginApi?.tr("settings.width")
     }
     RowLayout {
         Layout.fillWidth: true
@@ -90,7 +90,7 @@ ColumnLayout {
     }
 
     NLabel {
-        label: pluginApi?.tr("settings.scroll.speed") || "Scroll Speed"
+        label: pluginApi?.tr("settings.scroll.speed")
     }
     RowLayout {
         Layout.fillWidth: true
@@ -107,19 +107,19 @@ ColumnLayout {
     }
 
     NComboBox {
-        label: pluginApi?.tr("settings.scroll.mode.title") || "Scroll Mode"
+        label: pluginApi?.tr("settings.scroll.mode.title")
         Layout.fillWidth: true
         model: [
             {
-                name: pluginApi?.tr("settings.scroll.mode.always") || "Always Scroll",
+                name: pluginApi?.tr("settings.scroll.mode.always"),
                 key: "always"
             },
             {
-                name: pluginApi?.tr("settings.scroll.mode.hover") || "Scroll on Hover",
+                name: pluginApi?.tr("settings.scroll.mode.hover"),
                 key: "hover"
             },
             {
-                name: pluginApi?.tr("settings.scroll.mode.never") || "Don't Scroll",
+                name: pluginApi?.tr("settings.scroll.mode.never"),
                 key: "none"
             }
         ]
@@ -128,8 +128,8 @@ ColumnLayout {
     }
 
     NToggle {
-        label: pluginApi?.tr("settings.scroll.adapt") || "Adapt scroll speed to line"
-        description: pluginApi?.tr("settings.scroll.adapt-desc") || "Change scroll speed based on length of line"
+        label: pluginApi?.tr("settings.scroll.adapt")
+        description: pluginApi?.tr("settings.scroll.adapt-desc")
         checked: draftAdaptScrollSpeed
         onToggled: newState => {
             draftAdaptScrollSpeed = newState;
@@ -137,7 +137,7 @@ ColumnLayout {
     }
 
     NToggle {
-        label: pluginApi?.tr("settings.hide-when-empty") || "Hide when empty"
+        label: pluginApi?.tr("settings.hide-when-empty")
         checked: draftHideWhenEmpty
         onToggled: newState => {
             draftHideWhenEmpty = newState;
@@ -145,10 +145,10 @@ ColumnLayout {
     }
 
     NToggle {
-        label: pluginApi?.tr("show-when-paused") || "Show display when paused"
-        checked: draftShowWhenPaused
+        label: pluginApi?.tr("settings.hide-when-paused")
+        checked: draftHideWhenPaused
         onToggled: newState => {
-            draftShowWhenPaused = newState;
+            draftHideWhenPaused = newState;
         }
     }
 }
