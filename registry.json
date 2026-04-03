@@ -17,6 +17,25 @@
       "lastUpdated": "2026-02-04T23:08:01-07:00"
     },
     {
+      "id": "arch-updater",
+      "name": "Arch Updater",
+      "version": "1.0.0",
+      "official": false,
+      "author": "Ast",
+      "description": "A plugin to manage updates on Arch",
+      "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+      "minNoctaliaVersion": "3.6.0",
+      "license": "MIT",
+      "tags": [
+        "Bar",
+        "Desktop",
+        "Panel",
+        "System",
+        "Utility"
+      ],
+      "lastUpdated": "2026-03-31T22:59:40+01:00"
+    },
+    {
       "id": "assistant-panel",
       "name": "Assistant Panel",
       "version": "2.1.6",
@@ -536,7 +555,7 @@
     {
       "id": "mirror-mirror",
       "name": "Mirror Mirror",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "official": false,
       "author": "Mathew-D",
       "description": "Mirror one monitor to another using wl-mirror.",
@@ -549,7 +568,7 @@
         "Utility",
         "System"
       ],
-      "lastUpdated": "2026-03-29T19:05:12-04:00"
+      "lastUpdated": "2026-04-02T12:04:15+08:00"
     },
     {
       "id": "model-usage",
@@ -829,7 +848,7 @@
     {
       "id": "openhue",
       "name": "Openhue widget",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "official": false,
       "author": "alxndrv",
       "description": "Plugin for controlling Philips Hue lights from the taskbar",
@@ -840,7 +859,7 @@
         "Bar",
         "Panel"
       ],
-      "lastUpdated": "2026-03-29T19:05:12-04:00"
+      "lastUpdated": "2026-04-01T18:21:46+02:00"
     },
     {
       "id": "parallax-wallpaper",
@@ -1005,7 +1024,7 @@
     {
       "id": "screenshot",
       "name": "Screenshot",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "official": false,
       "author": "Cleboost",
       "description": "Quick screenshot button in bar for Hyprland, Sway, and Niri",
@@ -1016,7 +1035,7 @@
         "Bar",
         "Utility"
       ],
-      "lastUpdated": "2026-03-29T19:05:12-04:00"
+      "lastUpdated": "2026-04-02T20:49:25+02:00"
     },
     {
       "id": "show-keys",
