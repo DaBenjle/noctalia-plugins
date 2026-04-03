@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
+import Quickshell.Io
 import qs.Commons
 import qs.Widgets
 import qs.Services.UI
@@ -10,6 +11,12 @@ Item {
     id: root
 
     property var pluginApi: null
+    property ShellScreen screen
+    property string widgetId: ""
+    property string section: ""
+    property int sectionWidgetIndex: -1
+    property int sectionWidgetsCount: 0
+
     property var backend: pluginApi?.mainInstance
     property string lyricText: backend?.currentLyric || ""
     property int lyricInterval: backend?.lyricInterval
@@ -125,9 +132,33 @@ Item {
             }
         }
 
+        NPopupContextMenu {
+            id: contextMenu
+
+            model: [
+                {
+                    "label": pluginApi?.tr("settings.title") || "Settings",
+                    "action": "settings",
+                    "icon": "settings"
+                }
+            ]
+
+            onTriggered: action => {
+                // Always close the menu first
+                contextMenu.close();
+                PanelService.closeContextMenu(root.screen);
+
+                // Handle actions
+                if (action === "settings") {
+                    BarService.openPluginSettings(root.screen, pluginApi.manifest);
+                }
+            }
+        }
+
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
             onEntered: {
                 root.hovered = true;
                 if (isVertical)
@@ -137,6 +168,20 @@ Item {
                 root.hovered = false;
                 TooltipService.hide();
             }
+            onClicked: (mouse) => {
+                // Logger.d("MouseArea", "mouse clicked:", mouse.button)   
+                if (mouse.button === Qt.LeftButton) {
+                    openMediaPlayer.running = true
+                } else if (mouse.button === Qt.RightButton) {
+                    PanelService.showContextMenu(contextMenu, root, root.screen);
+                }
+            }
+        }
+
+        Process {
+            id: openMediaPlayer
+            command: ["qs", "-c", "noctalia-shell", "ipc", "call", "media", "toggle"]
+            running: false
         }
     }
 
@@ -270,7 +315,7 @@ Item {
             x: scrollX
 
             RowLayout {
-                spacing: 50
+                spacing: Style.defaultSpacing
 
                 NText {
                     id: titleText

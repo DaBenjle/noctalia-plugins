@@ -24,8 +24,6 @@ Item {
     property int songIndex: -2
     property int lyricInterval: 0
     property bool isLoading: false
-    property bool isPlaying: false
-    property bool notFound: false
     property string lastLyric: ""
     property bool showWhenPaused: pluginApi?.pluginSettings?.showWhenPaused ?? true
 
@@ -34,18 +32,15 @@ Item {
             return ""
         if (currentStatus === "Paused") {
             if (showWhenPaused)
-                return "Music paused"
+                return pluginApi?.tr("lyrics.paused") || "Music paused"
             else
                 return ""
         }
         if (isLoading)
-            return "Wait Loading 🪿"
+            return pluginApi?.tr("lyrics.loading") || "Wait Loading 🪿"
         if (lastLyric !== "")
             return lastLyric
-        if (isPlaying)
-            return "​"
-
-        return "Lyrics not found 🥲"
+        return "​"
     }
 
     function getLyricIndex() {
@@ -134,14 +129,12 @@ Item {
                     root.currentStatus = status
                     const pos = root.currentPosition
                     if (status === "Playing") {
-                        root.isPlaying = true
                         songPositionProc.running = true
                     } else if (status === "Paused") {
                         Logger.d("songDetailsProc", "song paused")
                         root.songIndex--
                         lyricsTimer.stop()
                     } else if (status === "Stopped") {
-                        root.isPlaying = false
                         lastLyric = ""
                     } 
                     return
@@ -150,7 +143,6 @@ Item {
                 Logger.d("songDetailsProc", "status", status)
                 Logger.d("songDetailsProc", "current status", root.currentStatus)
                 if (status === "Playing") {// && root.currentStatus !== "Playing") {
-                    root.isPlaying = true
                     root.isLoading = true
                     root.tempArtist = artist
                     root.tempPlayer = player
@@ -222,9 +214,7 @@ Item {
                 }
                 if (!lyrics) {
                     Logger.e("fetchLyricProc", "No synced lyrics")
-                    root.isPlaying = false
                     root.isLoading = false
-                    root.notFound = true
                     root.lastLyric = ""
                     return
                 }

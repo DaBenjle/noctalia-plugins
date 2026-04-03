@@ -7,7 +7,8 @@
   "license": "GPLv3",
   "description": "Uses MPRIS data to fetch song lyrics from lrclib.net and displays it in the bar.",
   "tags": [
-        "Bar"
+        "Bar",
+        "Music"
   ],
   "entryPoints": {
     "main": "Main.qml",
@@ -26,5 +27,6 @@
       "hideWhenEmpty": true,
       "adaptScrollSpeed": true
     }
-  }
+  },
+  "repository": "https://github.com/pever3ll/noctalia-plugins"
 }
