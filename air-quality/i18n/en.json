@@ -31,7 +31,15 @@
     "ozone": "O\u2083",
     "no2": "NO\u2082",
     "co": "CO",
-    "so2": "SO\u2082"
+    "so2": "SO\u2082",
+    "pm25Value": "PM2.5: {value} µg/m³",
+    "pm10Value": "PM10: {value} µg/m³",
+    "ozoneValue": "O\u2083: {value} µg/m³",
+    "no2Value": "NO\u2082: {value} µg/m³",
+    "coValue": "CO: {value} µg/m³",
+    "so2Value": "SO\u2082: {value} µg/m³",
+    "pm25Short": "PM2.5: {value}",
+    "pm10Short": "PM10: {value}"
   },
   "errors": {
     "weatherDisabled": "Enable weather in Noctalia settings or use custom coordinates",

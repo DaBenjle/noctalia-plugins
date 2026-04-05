@@ -59,13 +59,13 @@ DraggableDesktopWidget {
       spacing: Style.marginL * root.widgetScale
 
       NText {
-        text: pluginApi?.tr("pollutants.pm25") + ": " + (root.hasData ? Math.round(root.mainInstance.pm25 * 10) / 10 : "--")
+        text: pluginApi?.tr("pollutants.pm25Short", { value: root.hasData ? Math.round(root.mainInstance.pm25 * 10) / 10 : "--" })
         pointSize: Style.fontSizeS
         color: Color.mOnSurfaceVariant
       }
 
       NText {
-        text: pluginApi?.tr("pollutants.pm10") + ": " + (root.hasData ? Math.round(root.mainInstance.pm10 * 10) / 10 : "--")
+        text: pluginApi?.tr("pollutants.pm10Short", { value: root.hasData ? Math.round(root.mainInstance.pm10 * 10) / 10 : "--" })
         pointSize: Style.fontSizeS
         color: Color.mOnSurfaceVariant
       }

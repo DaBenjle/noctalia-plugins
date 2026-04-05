@@ -44,7 +44,7 @@ Item {
   NPopupContextMenu {
     id: contextMenu
     model: [
-      { "label": pluginApi?.tr("context.refresh"), "action": "refresh", "icon": "refresh-cw" },
+      { "label": pluginApi?.tr("context.refresh"), "action": "refresh", "icon": "refresh" },
       { "label": pluginApi?.tr("context.settings"), "action": "settings", "icon": "settings" }
     ]
     onTriggered: action => {
@@ -135,12 +135,12 @@ Item {
       var tip = scaleLabel + ": " + aqi + " — " + level
       if (city) tip += "\n" + city
       tip += "\n───────────────"
-      tip += "\n" + pluginApi?.tr("pollutants.pm25") + ": " + m.pm25 + " µg/m³"
-      tip += "\n" + pluginApi?.tr("pollutants.pm10") + ": " + m.pm10 + " µg/m³"
-      tip += "\n" + pluginApi?.tr("pollutants.ozone") + ": " + m.ozone + " µg/m³"
-      tip += "\n" + pluginApi?.tr("pollutants.no2") + ": " + m.no2 + " µg/m³"
-      tip += "\n" + pluginApi?.tr("pollutants.co") + ": " + m.co + " µg/m³"
-      tip += "\n" + pluginApi?.tr("pollutants.so2") + ": " + m.so2 + " µg/m³"
+      tip += "\n" + pluginApi?.tr("pollutants.pm25Value", { value: m.pm25 })
+      tip += "\n" + pluginApi?.tr("pollutants.pm10Value", { value: m.pm10 })
+      tip += "\n" + pluginApi?.tr("pollutants.ozoneValue", { value: m.ozone })
+      tip += "\n" + pluginApi?.tr("pollutants.no2Value", { value: m.no2 })
+      tip += "\n" + pluginApi?.tr("pollutants.coValue", { value: m.co })
+      tip += "\n" + pluginApi?.tr("pollutants.so2Value", { value: m.so2 })
       if (m.lastUpdate) tip += "\n───────────────\n" + pluginApi?.tr("panel.lastUpdate") + ": " + m.lastUpdate
       TooltipService.show(root, tip, BarService.getTooltipDirection())
     }
