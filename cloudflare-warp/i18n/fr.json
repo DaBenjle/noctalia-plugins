@@ -17,7 +17,7 @@
   },
   "settings": {
     "title": "Cloudflare WARP",
-    "description": "Activez et désactivez Cloudflare WARP depuis la barre et personnalisez son apparence.",
+    "description": "Activer et désactiver Cloudflare WARP depuis la barre et personnalisez son apparence.",
     "connected-color": "Couleur connecté",
     "connected-color-desc": "Couleur de l'icône lorsque WARP est connecté",
     "disconnected-color": "Couleur déconnecté",
