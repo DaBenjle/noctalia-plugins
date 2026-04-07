@@ -1031,6 +1031,25 @@
       "lastUpdated": "2026-02-01T21:52:23+05:30"
     },
     {
+      "id": "port-monitor",
+      "name": "Port Monitor",
+      "version": "1.0.0",
+      "official": false,
+      "author": "adriamartin91",
+      "description": "Monitor listening ports and their processes. Shows TCP/UDP ports with process info and kill functionality.",
+      "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+      "minNoctaliaVersion": "3.6.0",
+      "license": "MIT",
+      "tags": [
+        "Bar",
+        "Panel",
+        "Development",
+        "System",
+        "Utility"
+      ],
+      "lastUpdated": "2026-04-06T17:44:59+07:00"
+    },
+    {
       "id": "privacy-indicator",
       "name": "Privacy Indicator",
       "version": "1.2.7",
