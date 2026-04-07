@@ -38,7 +38,7 @@
     {
       "id": "arch-updater",
       "name": "Arch Updater",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "official": false,
       "author": "Ast",
       "description": "A plugin to manage updates on Arch",
@@ -52,7 +52,7 @@
         "System",
         "Utility"
       ],
-      "lastUpdated": "2026-04-05T21:07:29+07:00"
+      "lastUpdated": "2026-04-06T20:41:57+02:00"
     },
     {
       "id": "assistant-panel",
@@ -282,6 +282,23 @@
       "lastUpdated": "2026-03-20T21:37:46+01:00"
     },
     {
+      "id": "daily-wallpaper",
+      "name": "Daily Wallpaper",
+      "version": "1.0.0",
+      "official": false,
+      "author": "DigitallyRefined",
+      "description": "Fetches a new daily wallpaper from Bing or NASA",
+      "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+      "minNoctaliaVersion": "4.6.6",
+      "license": "MIT",
+      "tags": [
+        "Desktop",
+        "Fun",
+        "Utility"
+      ],
+      "lastUpdated": "2026-04-06T20:53:50+01:00"
+    },
+    {
       "id": "deskvis",
       "name": "DeskVis",
       "version": "2.0.2",
@@ -331,10 +348,10 @@
     {
       "id": "file-search",
       "name": "File Search",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "official": false,
       "author": "ericbreh",
-      "description": "File search using fd, integrated into the launcher",
+      "description": "File search from the launcher.",
       "repository": "https://github.com/noctalia-dev/noctalia-plugins",
       "minNoctaliaVersion": "4.1.2",
       "license": "MIT",
@@ -342,7 +359,7 @@
         "Launcher",
         "Productivity"
       ],
-      "lastUpdated": "2026-02-10T12:24:50-08:00"
+      "lastUpdated": "2026-03-29T17:18:54-07:00"
     },
     {
       "id": "giphy-search",
@@ -529,14 +546,20 @@
     {
       "id": "keybind-cheatsheet",
       "name": "Keybind Cheatsheet",
-      "version": "3.3.0",
+      "version": "3.4.0",
       "official": false,
       "author": "blacku",
       "description": "Universal keyboard shortcuts keymap that automatically detects and displays keybindings for Hyprland or Niri compositors.",
+      "repository": "https://github.com/noctalia-dev/noctalia-plugins",
       "minNoctaliaVersion": "3.6.0",
       "license": "MIT",
-      "tags": [],
-      "lastUpdated": "2026-04-04T17:56:57+07:00"
+      "tags": [
+        "Bar",
+        "Panel",
+        "System",
+        "Indicator"
+      ],
+      "lastUpdated": "2026-04-07T22:03:44+02:00"
     },
     {
       "id": "latency-monitor",
@@ -554,6 +577,23 @@
         "Network"
       ],
       "lastUpdated": "2026-04-05T22:01:32+01:00"
+    },
+    {
+      "id": "linux-wallpaperengine-controller",
+      "name": "Linux WallpaperEngine Controller",
+      "version": "1.0.6",
+      "official": false,
+      "author": "PaloMiku",
+      "description": "Control linux-wallpaperengine from Noctalia with per-screen wallpaper selection.",
+      "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+      "minNoctaliaVersion": "4.6.6",
+      "license": "MIT",
+      "tags": [
+        "Bar",
+        "Panel",
+        "Theming"
+      ],
+      "lastUpdated": "2026-04-07T10:24:52+08:00"
     },
     {
       "id": "mangowc-layout-switcher",
@@ -731,7 +771,7 @@
     {
       "id": "netbird",
       "name": "NetBird",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "official": false,
       "author": "Cleboost",
       "description": "Show NetBird VPN status in the menu bar.",
@@ -743,7 +783,7 @@
         "Network",
         "Panel"
       ],
-      "lastUpdated": "2026-03-20T23:10:16+01:00"
+      "lastUpdated": "2026-04-06T10:49:38-07:00"
     },
     {
       "id": "network-indicator",
@@ -847,6 +887,23 @@
         "System"
       ],
       "lastUpdated": "2026-02-05T11:41:54-08:00"
+    },
+    {
+      "id": "noctalia-calculator",
+      "name": "Calculator",
+      "version": "1.0.0",
+      "official": false,
+      "author": "pir0c0pter0",
+      "description": "Theme-aware calculator plugin for Noctalia on Niri with bar widget, floating panel and keyboard support",
+      "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+      "minNoctaliaVersion": "4.4.0",
+      "license": "MIT",
+      "tags": [
+        "Bar",
+        "Panel",
+        "Utility"
+      ],
+      "lastUpdated": "2026-03-23T15:27:58-03:00"
     },
     {
       "id": "noctalia-supergfxctl",
@@ -978,6 +1035,25 @@
         "Productivity"
       ],
       "lastUpdated": "2026-02-01T21:52:23+05:30"
+    },
+    {
+      "id": "port-monitor",
+      "name": "Port Monitor",
+      "version": "1.0.0",
+      "official": false,
+      "author": "adriamartin91",
+      "description": "Monitor listening ports and their processes. Shows TCP/UDP ports with process info and kill functionality.",
+      "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+      "minNoctaliaVersion": "3.6.0",
+      "license": "MIT",
+      "tags": [
+        "Bar",
+        "Panel",
+        "Development",
+        "System",
+        "Utility"
+      ],
+      "lastUpdated": "2026-04-06T17:44:59+07:00"
     },
     {
       "id": "privacy-indicator",
@@ -1280,7 +1356,7 @@
     {
       "id": "sys-info-widget",
       "name": "System Info",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "official": false,
       "author": "Simon",
       "description": "Shows Distribution, Kernel, Uptime and IP addresses.",
@@ -1291,7 +1367,7 @@
         "Desktop",
         "System"
       ],
-      "lastUpdated": "2026-04-03T20:49:02+02:00"
+      "lastUpdated": "2026-04-06T20:25:03+02:00"
     },
     {
       "id": "tailscale",
