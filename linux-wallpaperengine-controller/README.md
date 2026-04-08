@@ -1,6 +1,6 @@
-# Wallpaper-Engine Wallpaper Selector
+# Linux WallpaperEngine Controller
 
-A Noctalia plugin to browse and apply Wallpaper Engine workshop wallpapers through `linux-wallpaperengine`, with multi-display targeting and per-wallpaper playback options.
+A Noctalia plugin that provides a Wallpaper-Engine wallpaper selector powered by your locally installed `linux-wallpaperengine`, with multi-display targeting and per-wallpaper playback options.
 
 ## Features
 
