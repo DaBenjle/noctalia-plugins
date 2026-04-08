@@ -30,7 +30,7 @@
   },
   "panel": {
     "title": "Linux-WallpaperEngine",
-    "sectionAudio": "オーディオとディスプレイ",
+    "sectionAudio": "ディスプレイとオーディオ",
     "sectionFeatures": "機能",
     "installHint": "インストール例: yay -S linux-wallpaperengine-git",
     "errorBannerTitle": "ランタイムエラーを検出",

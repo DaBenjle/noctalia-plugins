@@ -30,7 +30,7 @@
   },
   "panel": {
     "title": "Linux-WallpaperEngine",
-    "sectionAudio": "Аудио и отображение",
+    "sectionAudio": "Отображение и аудио",
     "sectionFeatures": "Функции",
     "installHint": "Пример установки: yay -S linux-wallpaperengine-git",
     "errorBannerTitle": "Обнаружена ошибка выполнения",

@@ -819,52 +819,83 @@ Item {
                       }
                     }
 
-                    RowLayout {
-                      Layout.fillWidth: true
-                      spacing: Style.marginXS
+                     RowLayout {
+                       Layout.fillWidth: true
+                       spacing: Style.marginXS
 
-                      NText {
-                        Layout.fillWidth: true
-                        text: modelData.name
-                        color: Color.mOnSurface
-                        elide: Text.ElideRight
-                        font.weight: Font.Medium
-                      }
+                       NText {
+                         Layout.fillWidth: true
+                         text: modelData.name
+                         color: Color.mOnSurface
+                         elide: Text.ElideRight
+                         font.weight: Font.Medium
+                       }
 
-                      NText {
-                        text: modelData.dynamic
-                          ? pluginApi?.tr("panel.dynamicBadge")
-                          : pluginApi?.tr("panel.staticBadge")
-                        color: Color.mPrimary
-                        font.pointSize: Style.fontSizeS
-                      }
-
-                      NIcon {
-                        visible: root.selectedPath === modelData.path
-                        icon: "check"
+                       NIcon {
+                         visible: root.selectedPath === modelData.path
+                         icon: "check"
                         pointSize: Style.fontSizeL
                         color: Color.mPrimary
                       }
                     }
 
-                    RowLayout {
-                      Layout.fillWidth: true
-                      spacing: Style.marginXS
+                     RowLayout {
+                       Layout.fillWidth: true
+                       spacing: Style.marginXS
 
-                      NText {
-                        Layout.fillWidth: true
-                        text: modelData.id
-                        color: Color.mOnSurfaceVariant
-                        elide: Text.ElideMiddle
-                        font.pointSize: Style.fontSizeS
-                      }
+                       Rectangle {
+                         color: Qt.alpha(Color.mPrimary, 0.14)
+                         radius: Style.radiusXS
+                         implicitWidth: idBadgeText.implicitWidth + Style.marginS * 2
+                         implicitHeight: idBadgeText.implicitHeight + Style.marginXS * 2
 
-                      NText {
-                        text: root.typeLabel(modelData.type)
-                        color: Color.mOnSurfaceVariant
-                        font.pointSize: Style.fontSizeS
-                      }
-                    }
+                         NText {
+                           id: idBadgeText
+                           anchors.centerIn: parent
+                           text: modelData.id
+                           color: Color.mPrimary
+                           elide: Text.ElideMiddle
+                           font.pointSize: Style.fontSizeXS
+                           font.weight: Font.Medium
+                         }
+                       }
+
+                       Item { Layout.fillWidth: true }
+
+                       Rectangle {
+                         color: Qt.alpha(Color.mSecondary, 0.18)
+                         radius: Style.radiusXS
+                         implicitWidth: typeBadgeText.implicitWidth + Style.marginS * 2
+                         implicitHeight: typeBadgeText.implicitHeight + Style.marginXS * 2
+
+                         NText {
+                           id: typeBadgeText
+                           anchors.centerIn: parent
+                           text: root.typeLabel(modelData.type)
+                           color: Color.mSecondary
+                           font.pointSize: Style.fontSizeXS
+                           font.weight: Font.Medium
+                         }
+                       }
+
+                       Rectangle {
+                         color: modelData.dynamic ? Qt.alpha(Color.mTertiary, 0.18) : Qt.alpha(Color.mOutline, 0.18)
+                         radius: Style.radiusXS
+                         implicitWidth: motionBadgeText.implicitWidth + Style.marginS * 2
+                         implicitHeight: motionBadgeText.implicitHeight + Style.marginXS * 2
+
+                         NText {
+                           id: motionBadgeText
+                           anchors.centerIn: parent
+                           text: modelData.dynamic
+                             ? pluginApi?.tr("panel.dynamicBadge")
+                             : pluginApi?.tr("panel.staticBadge")
+                           color: modelData.dynamic ? Color.mTertiary : Color.mOnSurfaceVariant
+                           font.pointSize: Style.fontSizeXS
+                           font.weight: Font.Medium
+                         }
+                       }
+                     }
                   }
 
                   MouseArea {

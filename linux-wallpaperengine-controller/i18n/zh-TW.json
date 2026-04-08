@@ -30,7 +30,7 @@
   },
   "panel": {
     "title": "Linux-WallpaperEngine",
-    "sectionAudio": "音訊與顯示",
+    "sectionAudio": "顯示與音訊",
     "sectionFeatures": "功能",
     "installHint": "安裝範例：yay -S linux-wallpaperengine-git",
     "errorBannerTitle": "偵測到執行期錯誤",
