@@ -167,7 +167,7 @@ Item {
 
     Process {
         id: songPositionProc
-        command: ["playerctl", "--player", root.currentPlayer, "position"]
+        command: ["playerctl", "--player", root.currentPlayer, "position", "-F"]
         running: false
 
         stdout: SplitParser {
@@ -233,7 +233,7 @@ Item {
                 }
                 var lyricArr = []
                 for (var i = 0; i < syncTimes.length; i++) {
-                    const lyric = lyrics.slice(syncIndex[i]+11, syncIndex[i+1] ?? lyrics.length)
+                    const lyric = lyrics.slice(syncIndex[i]+10, syncIndex[i+1] ?? lyrics.length).trim()
                     const timestamp = syncTimes[i].slice(1,9)
                     lyricArr.push({"time": parseInt(timestamp.slice(0,2)) * 60 + parseFloat(timestamp.slice(3)), "lyric": lyric.trim()})
                     // Logger.d("fetchLyricProc", "timestamp:", parseInt(timestamp.slice(0,2)) * 60.0 + parseFloat(timestamp.slice(3)), "lyric:", lyric.trim())
@@ -269,14 +269,18 @@ Item {
                 }
             }
             if (root.songLyrics.length-1 == root.songIndex) {
+                root.currentPosition = 0
                 root.lastLyric = ""
                 return
             }
-            root.lastLyric = root.songLyrics[root.songIndex]?.lyric ?? ""
-            // Logger.d("lyricTimer", "nextTime:", root.songLyrics[root.songIndex+1].time)
-            // Logger.d("lyricTimer", "currTime:", currentPosition)
-            root.songIndex++
-            root.lyricInterval = (root.songLyrics[root.songIndex].time - root.currentPosition) * 1000
+            do {
+                root.lastLyric = root.songLyrics[root.songIndex]?.lyric ?? ""
+                // Logger.d("lyricTimer", "lyric", root.lastLyric)
+                // Logger.d("lyricTimer", "nextTime:", root.songLyrics[root.songIndex+1].time)
+                // Logger.d("lyricTimer", "currTime:", currentPosition)
+                root.songIndex++
+                root.lyricInterval = (root.songLyrics[root.songIndex].time - root.currentPosition) * 1000
+            } while (root.lyricInterval < 0)
             // Logger.d("lyricTimer", "starting new timer:", root.lyricInterval)
             root.currentPosition = root.songLyrics[root.songIndex].time
             lyricsTimer.restart()
