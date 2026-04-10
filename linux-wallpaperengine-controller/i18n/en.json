@@ -173,6 +173,10 @@
     "defaultAudioReactiveEffects": {
       "label": "Audio reactive effects"
     },
+    "defaultNoAutomute": {
+      "label": "Do not mute when other apps play audio",
+      "description": "When enabled, wallpaper audio keeps playing even while other applications are outputting sound"
+    },
     "defaultDisableMouse": {
       "label": "Disable mouse interaction"
     },

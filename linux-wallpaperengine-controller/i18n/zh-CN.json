@@ -173,6 +173,10 @@
     "defaultAudioReactiveEffects": {
       "label": "音频响应效果"
     },
+    "defaultNoAutomute": {
+      "label": "其他应用播放音频时不静音",
+      "description": "开启后，其他应用输出声音时壁纸也会继续播放音频"
+    },
     "defaultDisableMouse": {
       "label": "禁用鼠标交互"
     },

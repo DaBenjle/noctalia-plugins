@@ -22,6 +22,7 @@ ColumnLayout {
   property int editDefaultVolume: cfg.defaultVolume ?? defaults.defaultVolume ?? 100
   property bool editDefaultMuted: cfg.defaultMuted ?? defaults.defaultMuted ?? true
   property bool editDefaultAudioReactiveEffects: cfg.defaultAudioReactiveEffects ?? defaults.defaultAudioReactiveEffects ?? true
+  property bool editDefaultNoAutomute: cfg.defaultNoAutomute ?? defaults.defaultNoAutomute ?? false
   property bool editDefaultDisableMouse: cfg.defaultDisableMouse ?? defaults.defaultDisableMouse ?? false
   property bool editDefaultDisableParallax: cfg.defaultDisableParallax ?? defaults.defaultDisableParallax ?? false
   property bool editDefaultNoFullscreenPause: cfg.defaultNoFullscreenPause ?? defaults.defaultNoFullscreenPause ?? false
@@ -185,6 +186,14 @@ ColumnLayout {
     onToggled: checked => root.editDefaultAudioReactiveEffects = checked
   }
 
+  NToggle {
+    Layout.fillWidth: true
+    label: pluginApi?.tr("settings.defaultNoAutomute.label")
+    description: pluginApi?.tr("settings.defaultNoAutomute.description")
+    checked: root.editDefaultNoAutomute
+    onToggled: checked => root.editDefaultNoAutomute = checked
+  }
+
   NDivider {
     Layout.fillWidth: true
   }
@@ -243,6 +252,7 @@ ColumnLayout {
     pluginApi.pluginSettings.defaultVolume = defaultVolumeSpinBox.value;
     pluginApi.pluginSettings.defaultMuted = root.editDefaultMuted;
     pluginApi.pluginSettings.defaultAudioReactiveEffects = root.editDefaultAudioReactiveEffects;
+    pluginApi.pluginSettings.defaultNoAutomute = root.editDefaultNoAutomute;
     pluginApi.pluginSettings.defaultDisableMouse = root.editDefaultDisableMouse;
     pluginApi.pluginSettings.defaultDisableParallax = root.editDefaultDisableParallax;
     pluginApi.pluginSettings.defaultNoFullscreenPause = root.editDefaultNoFullscreenPause;
@@ -250,7 +260,7 @@ ColumnLayout {
     pluginApi.pluginSettings.autoApplyOnStartup = root.editAutoApplyOnStartup;
 
     pluginApi.saveSettings();
-    Logger.d("LWEController", "Settings saved", "wallpapersFolder=", root.editWallpapersFolder, "assetsDir=", root.editAssetsDir, "defaultScaling=", root.editDefaultScaling, "defaultFps=", defaultFpsSpinBox.value, "defaultVolume=", defaultVolumeSpinBox.value, "defaultMuted=", root.editDefaultMuted, "defaultAudioReactiveEffects=", root.editDefaultAudioReactiveEffects, "defaultDisableMouse=", root.editDefaultDisableMouse, "defaultDisableParallax=", root.editDefaultDisableParallax, "defaultNoFullscreenPause=", root.editDefaultNoFullscreenPause, "defaultFullscreenPauseOnlyActive=", root.editDefaultFullscreenPauseOnlyActive, "autoApplyOnStartup=", root.editAutoApplyOnStartup);
+    Logger.d("LWEController", "Settings saved", "wallpapersFolder=", root.editWallpapersFolder, "assetsDir=", root.editAssetsDir, "defaultScaling=", root.editDefaultScaling, "defaultFps=", defaultFpsSpinBox.value, "defaultVolume=", defaultVolumeSpinBox.value, "defaultMuted=", root.editDefaultMuted, "defaultAudioReactiveEffects=", root.editDefaultAudioReactiveEffects, "defaultNoAutomute=", root.editDefaultNoAutomute, "defaultDisableMouse=", root.editDefaultDisableMouse, "defaultDisableParallax=", root.editDefaultDisableParallax, "defaultNoFullscreenPause=", root.editDefaultNoFullscreenPause, "defaultFullscreenPauseOnlyActive=", root.editDefaultFullscreenPauseOnlyActive, "autoApplyOnStartup=", root.editAutoApplyOnStartup);
 
     if (pluginApi.mainInstance && pluginApi.mainInstance.engineAvailable) {
       Logger.d("LWEController", "Triggering engine reload after settings save");

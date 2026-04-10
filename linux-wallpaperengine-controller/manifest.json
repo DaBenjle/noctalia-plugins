@@ -32,6 +32,7 @@
       "defaultVolume": 100,
       "defaultMuted": true,
       "defaultAudioReactiveEffects": true,
+      "defaultNoAutomute": false,
       "defaultDisableMouse": false,
       "defaultDisableParallax": false,
       "defaultNoFullscreenPause": false,

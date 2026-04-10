@@ -179,6 +179,7 @@ Item {
 
   readonly property bool defaultMuted: cfg.defaultMuted ?? defaults.defaultMuted ?? true
   readonly property bool defaultAudioReactiveEffects: cfg.defaultAudioReactiveEffects ?? defaults.defaultAudioReactiveEffects ?? true
+  readonly property bool defaultNoAutomute: cfg.defaultNoAutomute ?? defaults.defaultNoAutomute ?? false
   readonly property bool defaultDisableMouse: cfg.defaultDisableMouse ?? defaults.defaultDisableMouse ?? false
   readonly property bool defaultDisableParallax: cfg.defaultDisableParallax ?? defaults.defaultDisableParallax ?? false
   readonly property bool defaultNoFullscreenPause: cfg.defaultNoFullscreenPause ?? defaults.defaultNoFullscreenPause ?? false
@@ -202,6 +203,7 @@ Item {
       volume: isNaN(resolvedVolume) ? defaultVolume : Math.max(0, Math.min(100, Math.floor(resolvedVolume))),
       muted: raw.muted ?? defaultMuted,
       audioReactiveEffects: raw.audioReactiveEffects ?? defaultAudioReactiveEffects,
+      noAutomute: raw.noAutomute ?? defaultNoAutomute,
       disableMouse: raw.disableMouse ?? defaultDisableMouse,
       disableParallax: raw.disableParallax ?? defaultDisableParallax
     };
@@ -482,6 +484,7 @@ Item {
       volume: defaultVolume,
       muted: defaultMuted,
       audioReactiveEffects: defaultAudioReactiveEffects,
+      noAutomute: defaultNoAutomute,
       disableMouse: defaultDisableMouse,
       disableParallax: defaultDisableParallax
     };
@@ -494,6 +497,7 @@ Item {
           volume: candidateCfg.volume,
           muted: candidateCfg.muted,
           audioReactiveEffects: candidateCfg.audioReactiveEffects,
+          noAutomute: candidateCfg.noAutomute,
           disableMouse: candidateCfg.disableMouse,
           disableParallax: candidateCfg.disableParallax
         };
@@ -513,6 +517,10 @@ Item {
 
     if (!runtimeOptions.audioReactiveEffects) {
       command.push("--no-audio-processing");
+    }
+
+    if (runtimeOptions.noAutomute) {
+      command.push("--noautomute");
     }
 
     if (runtimeOptions.disableMouse) {

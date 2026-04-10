@@ -173,6 +173,10 @@
     "defaultAudioReactiveEffects": {
       "label": "オーディオ反応効果"
     },
+    "defaultNoAutomute": {
+      "label": "他のアプリが音声再生中でもミュートしない",
+      "description": "有効にすると、他のアプリが音を出していても壁紙音声を再生し続けます"
+    },
     "defaultDisableMouse": {
       "label": "マウス操作を無効化"
     },
