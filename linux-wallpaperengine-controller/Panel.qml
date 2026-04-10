@@ -1506,14 +1506,14 @@ Item {
                 Layout.fillHeight: true
                 spacing: Style.marginS
 
-                GridView {
+                NGridView {
                   id: gridView
                   Layout.fillWidth: true
                   Layout.fillHeight: true
                   property real minCardWidth: 244 * Style.uiScaleRatio
                   property real cardGap: Style.marginS
-                  property int columnCount: Math.max(1, Math.floor((width + cardGap) / (minCardWidth + cardGap)))
-                  cellWidth: (width - ((columnCount - 1) * cardGap)) / columnCount
+                  property int columnCount: Math.max(1, Math.floor((availableWidth + cardGap) / (minCardWidth + cardGap)))
+                  cellWidth: (availableWidth - ((columnCount - 1) * cardGap)) / columnCount
                   cellHeight: 208 * Style.uiScaleRatio
                   boundsBehavior: Flickable.StopAtBounds
                   clip: true
