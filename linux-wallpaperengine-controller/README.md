@@ -1,14 +1,14 @@
 # Linux WallpaperEngine Controller
 
-A Noctalia plugin that provides a Wallpaper-Engine wallpaper selector powered by your locally installed `linux-wallpaperengine`, with multi-display targeting and per-wallpaper playback options.
+A Noctalia plugin that provides a Wallpaper-Engine wallpaper selector powered by your locally installed `linux-wallpaperengine`, with multi-display targeting, runtime controls, extra property editing, and compatibility checks.
 
 ## Features
 
 - Bar widget with quick access to the wallpaper selector panel
-- Panel with wallpaper search, type filter, resolution filter, and sorting
+- Panel with wallpaper search by name or workshop ID, type filter, resolution filter, sorting, and pagination
 - Apply wallpapers to all displays or select a specific display target
-- Sidebar preview with wallpaper badges for ID, resolution, type, and dynamic/static state
-- Per-wallpaper options for scaling, volume, mute, audio reactive effects, mouse input, and parallax
+- Sidebar preview with wallpaper badges for resolution, type, dynamic/static state, and possible compatibility issues, plus a clickable workshop ID
+- Runtime controls for scaling, clamp mode, volume, mute, audio reactive effects, mouse input, and parallax
 - 5 translations: en, ja, ru, zh-CN, zh-TW
 
 ## Requirements
@@ -43,6 +43,8 @@ qs ipc call plugin:linux-wallpaperengine-controller reload
 - Check that `linux-wallpaperengine` is available: `command -v linux-wallpaperengine`
 - If the panel shows a source-folder error, verify that `Wallpapers source folder` exists and contains Wallpaper Engine project directories
 - If no wallpapers appear after applying filters, clear the search text and resolution/type filters
+- If a wallpaper is marked as `may fail`, run the compatibility quick check again and verify that `linux-wallpaperengine --list-properties <wallpaper-path>` succeeds
+- If the extra properties section is empty, that wallpaper may not expose supported editable properties
 - If the engine fails to start, recheck your GPU / OpenGL environment.
 - For runtime logs, start the shell with debug enabled: `NOCTALIA_DEBUG=1 qs -c noctalia-shell`
 
