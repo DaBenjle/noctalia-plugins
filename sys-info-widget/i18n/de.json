@@ -4,6 +4,7 @@
     "kernel": "Kernel",
     "uptime": "Betriebszeit",
     "cpu": "CPU",
+    "separator_at": "@",
     "memory": "Speicher",
     "disk_root": "Festplatte /",
     "disk_home": "Festplatte /home",
